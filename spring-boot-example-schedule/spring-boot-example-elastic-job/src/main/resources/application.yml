@@ -1,0 +1,5 @@
+hello: hello world
+
+elastic-job:
+  zk-server-list: 127.0.0.1:2181
+  namespace: elastic-job

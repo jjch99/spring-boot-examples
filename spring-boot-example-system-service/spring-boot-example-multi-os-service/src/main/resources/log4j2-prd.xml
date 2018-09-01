@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="OFF" monitorInterval="60">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss,SSS} %-5p [%t] %c{1.} - %m%n" />
+		</Console>
+		<RollingFile name="RollingFile" fileName="${sys:basedir}/logs/@project.artifactId@.log"
+			filePattern="${sys:basedir}/logs/@project.artifactId@.log-%i.gz">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%t] %c{1.} %m%n" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="50" />
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<logger name="org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer" additivity="true">
+		    <AppenderRef ref="Console"/>
+		</logger>
+		<logger name="org.apache.catalina.core.StandardService" additivity="true">
+            <AppenderRef ref="Console"/>
+        </logger>
+        <logger name="org.apache.catalina.core.StandardEngine" additivity="true">
+            <AppenderRef ref="Console"/>
+        </logger>
+        <logger name="org.example.Application" additivity="true">
+            <AppenderRef ref="Console"/>
+        </logger>
+		<Root level="INFO">
+			<AppenderRef ref="RollingFile" />
+		</Root>
+	</Loggers>
+</Configuration>

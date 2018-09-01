@@ -1,0 +1,7 @@
+# Logging Configuration
+logging:
+  config: classpath:log4j2-dev.xml
+
+# Server Port Configuration
+server:
+  port: 8082

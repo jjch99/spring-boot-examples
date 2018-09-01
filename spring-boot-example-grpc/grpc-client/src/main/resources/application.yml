@@ -1,0 +1,9 @@
+zipkin:
+  endpoint: http://localhost:9411/api/v2/spans
+
+server:
+  port: 8083
+
+grpc:
+  host: localhost
+  port: 9091

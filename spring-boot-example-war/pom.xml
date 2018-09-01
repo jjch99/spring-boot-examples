@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>spring-boot-examples</artifactId>
+        <groupId>org.examples</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>spring-boot-example-war</artifactId>
+    <packaging>war</packaging>
+
+    <properties>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>spring-boot-example</finalName>
+        <resources>
+            <!-- resources主目录下的properties和xml文件做maven变量的替换，其他文件不替换。 -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>*.properties</include>
+                    <include>*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>*.properties</exclude>
+                    <exclude>*.xml</exclude>
+                </excludes>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <!-- 打war包时class及resources文件将被打成jar包 -->
+                        <!-- 这里把不要打入jar包的文件删除，打war包时再复制到 WEB-INF/classes -->
+                        <!-- 不在resources配置中做排除是因为resources配置会影响到IDE -->
+                        <phase>prepare-package</phase>
+                        <configuration>
+                            <target>
+                                <delete verbose="true" quiet="true">
+                                    <fileset dir="${project.build.outputDirectory}">
+                                        <include name="*.properties" />
+                                        <include name="*.xml" />
+                                    </fileset>
+                                </delete>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <!-- class文件及resources里的文件打成jar包 -->
+                    <archiveClasses>true</archiveClasses>
+                    <webResources>
+                        <webResource>
+                            <!-- xml/properties文件放到classes目录 -->
+                            <!-- 前面resources里已将这些文件排除 -->
+                            <directory>src/main/resources/</directory>
+                            <targetPath>WEB-INF/classes</targetPath>
+                            <includes>
+                                <include>*.properties</include>
+                                <include>*.xml</include>
+                            </includes>
+                            <filtering>true</filtering>
+                        </webResource>
+                    </webResources>
+                    <archive>
+                        <manifestEntries>
+                            <!-- MANIFEST.MF 里加上时间戳，后续查找分析问题时可看到程序打包时间 -->
+                            <Build-Time>${maven.build.timestamp}</Build-Time>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

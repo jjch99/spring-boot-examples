@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package services;
+
+option java_multiple_files = true;
+option java_package = "org.example.grpc";
+option java_outer_classname = "HelloProtos";
+
+service HelloService {
+    rpc hello(HelloMessage) returns (HelloMessage) {}
+}
+
+message HelloMessage {
+  string name = 1;
+}

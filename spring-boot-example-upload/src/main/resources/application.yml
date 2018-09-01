@@ -1,0 +1,8 @@
+# Ref
+# https://docs.spring.io/spring-boot/docs/1.5.x/reference/html/common-application-properties.html
+
+spring:
+  http:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 50MB

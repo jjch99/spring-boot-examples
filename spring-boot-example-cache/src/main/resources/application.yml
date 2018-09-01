@@ -1,0 +1,12 @@
+custom-redis-config: true
+
+spring:
+  cache:
+    ehcache:
+      config: classpath:/ehcache.xml
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    pool:
+      max-active: 8

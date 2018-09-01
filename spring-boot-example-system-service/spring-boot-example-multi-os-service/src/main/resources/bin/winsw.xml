@@ -1,0 +1,13 @@
+<service>
+    <id>@project.artifactId@</id>
+    <name>@project.artifactId@</name>
+    <description>@project.artifactId@</description>
+
+    <executable>%BASE%\startup.bat</executable>
+	<stopexecutable>%BASE%\shutdown.bat</stopexecutable>
+    
+    <logpath>%BASE%\..\logs</logpath>
+    <log mode="roll-by-time">
+        <pattern>yyyyMMdd</pattern>
+    </log>
+</service>
