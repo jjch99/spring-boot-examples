@@ -2,12 +2,14 @@
  
 gRPC简单示例，集成`zipkin`作为调用链跟踪。
 
-
 启动`zipkin`服务
 ```
 curl -sSL https://zipkin.io/quickstart.sh | bash -s
 java -jar zipkin.jar
 ```
+
+official grpc-java
+> https://github.com/grpc/grpc-java
 
 awesome-grpc
 > https://github.com/grpc-ecosystem/awesome-grpc
@@ -19,6 +21,12 @@ grpc-spring-boot-starter
 > https://github.com/yidongnan/grpc-spring-boot-starter
 >
 > https://github.com/saturnism/spring-boot-starter-grpc
+
+grpc-gateway
+> https://github.com/grpc-ecosystem/grpc-gateway
+
+grpc examples
+> https://github.com/saturnism/grpc-java-by-example
 
 grpc优点
 - 跨语言支持
