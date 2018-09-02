@@ -11,6 +11,9 @@ java -jar zipkin.jar
 official grpc-java
 > https://github.com/grpc/grpc-java
 
+gRPC 官方文档中文版 V1.0
+> https://doc.oschina.net/grpc
+
 awesome-grpc
 > https://github.com/grpc-ecosystem/awesome-grpc
 
@@ -29,6 +32,8 @@ grpc-gateway
 
 grpc examples
 > https://github.com/saturnism/grpc-java-by-example
+>
+> https://github.com/WThamira/gRpc-spring-boot-example
 
 grpc优点
 - 跨语言支持
