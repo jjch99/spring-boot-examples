@@ -27,8 +27,9 @@ public class GrpcServer {
     private Reporter reporter;
 
     public GrpcServer(int port, Reporter reporter) {
-        serverBuilder = ServerBuilder.forPort(port);
+        this.port = port;
         this.reporter = reporter;
+        this.serverBuilder = ServerBuilder.forPort(this.port);
     }
 
     public void addService(String serviceName, BindableService service) {
