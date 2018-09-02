@@ -21,6 +21,8 @@ grpc-spring-boot-starter
 > https://github.com/yidongnan/grpc-spring-boot-starter
 >
 > https://github.com/saturnism/spring-boot-starter-grpc
+>
+> https://github.com/ChinaSilence/spring-boot-starter-grpc
 
 grpc-gateway
 > https://github.com/grpc-ecosystem/grpc-gateway
