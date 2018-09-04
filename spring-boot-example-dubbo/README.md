@@ -4,7 +4,12 @@ dubbo
 > http://dubbo.apache.org/
 
 dubbo-spring-boot-starter
-> https://github.com/apache/incubator-dubbo-spring-boot-project/tree/0.1.x 
+> https://github.com/apache/incubator-dubbo-spring-boot-project/tree/0.1.x
+
+dubbo-admin
+> https://github.com/apache/incubator-dubbo-ops  
+> 如果打包时提示 `maven-assembly-plugin` 有问题，可将其版本改为`2.4`试试  
+> 最新的版本已经改成 Spring-Boot 程序，打的是`jar`包，启动时可通过 `java -Dkey=value ` 方式设置参数
 
 brave-instrumentation-dubbo-rpc
 > https://github.com/openzipkin/brave/tree/master/instrumentation/dubbo-rpc
