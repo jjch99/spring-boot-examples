@@ -2,9 +2,9 @@ package org.example.dubbo.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,40 +21,35 @@ import zipkin2.reporter.okhttp3.OkHttpSender;
 @Configuration
 public class ZipKinConfig {
 
-    // @Value("${zipkin.tracing.local-service-name:local-service-name}")
     @Value("${spring.application.name}")
     private String localServiceName;
 
-    /**
-     * zipkin服务地址
-     */
-    @Value("${zipkin.tracing.endpoint:http://localhost:9411/api/v2/spans}")
+    @Value("${zipkin.tracing.endpoint}")
     private String zipkinEndPoint;
 
-    /**
-     * Kafka地址
-     */
-    @Value("${zipkin.tracing.kafka.bootstrap-servers}")
-    private String kafkaBootstrapServers;
-
-    /**
-     * Kafka Topic
-     */
-    @Value("${zipkin.tracing.kafka.topic}")
-    private String kafkaTopic;
+    @Autowired(required = false)
+    private ZipKinKafkaProperties kafkaProperties;
 
     @Autowired
     private Sender sender;
 
     @Bean
     @ConditionalOnClass(KafkaSender.class)
-    @ConditionalOnProperty(name = "zipkin.tracing.kafka.bootstrap-servers", havingValue = "")
+    @ConditionalOnBean(ZipKinKafkaProperties.class)
     public KafkaSender kafkaSender() {
-        KafkaSender sender = KafkaSender.newBuilder()
-                .bootstrapServers(kafkaBootstrapServers)
-                .topic(kafkaTopic)
-                .encoding(Encoding.JSON)
-                .build();
+
+        KafkaSender.Builder builder = KafkaSender.newBuilder()
+                .bootstrapServers(kafkaProperties.getBootstrapServers())
+                .topic(kafkaProperties.getTopic())
+                .encoding(Encoding.JSON);
+        if (kafkaProperties.getMessageMaxBytes() != null){
+            builder.messageMaxBytes(kafkaProperties.getMessageMaxBytes());
+        }
+        if (kafkaProperties.getOverrides() != null) {
+            builder.overrides(kafkaProperties.getOverrides());
+        }
+
+        KafkaSender sender = builder.build();
         return sender;
     }
 

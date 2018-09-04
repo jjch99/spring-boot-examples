@@ -25,7 +25,4 @@ zipkin:
       topic: zipkin
 ```
 
-启动`zipkin-server`，地址、端口、路径根据实际情况调整
-```
-KAFKA_BOOTSTRAP_SERVERS=devhost:8092 QUERY_PORT=8411 java -jar zipkin.jar
-```
+ZipKin Kafka ES 的安装可参考相应子目录的说明。
