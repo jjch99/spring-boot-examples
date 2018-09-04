@@ -8,8 +8,8 @@ dubbo-spring-boot-starter
 
 dubbo-admin
 > https://github.com/apache/incubator-dubbo-ops  
-> 如果打包时提示 `maven-assembly-plugin` 有问题，可将其版本改为`2.4`试试  
-> 最新的版本已经改成 Spring-Boot 程序，打的是`jar`包，启动时可通过 `java -Dkey=value ` 方式设置参数
+> 如果打包时提示`assembly`出错，可将`maven-assembly-plugin`版本改为`2.4`试试  
+> 最新的版本已经改成 Spring-Boot 程序，打的是`jar`包，启动时可通过 `java -Dkey=value -jar dubbo-admin.jar` 方式设置参数
 
 brave-instrumentation-dubbo-rpc
 > https://github.com/openzipkin/brave/tree/master/instrumentation/dubbo-rpc
@@ -30,4 +30,4 @@ zipkin:
       topic: zipkin
 ```
 
-ZipKin Kafka ES 的安装可参考相应子目录的说明。
+`ZipKin` `Kafka` `ES` 的安装可参考相应子目录的说明。
