@@ -3,6 +3,8 @@
 BASEDIR=$(cd "$(dirname "$0")"; pwd)
 cd $BASEDIR
 
+source zipkin.conf
+
 find_pid()
 {
   pid=$(ps aux|grep $(pwd)/zipkin.jar | grep -v grep | awk '{print $2}')
