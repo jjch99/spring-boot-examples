@@ -1,6 +1,6 @@
 ## Elasticsearch 简单安装
 
-调整Linux系统limit
+调整Linux系统`limits`配置 (如果仅绑定地址`127.0.0.1`，无需调整系统参数)
 ```
 sudo vi /etc/security/limits.conf
 ```
