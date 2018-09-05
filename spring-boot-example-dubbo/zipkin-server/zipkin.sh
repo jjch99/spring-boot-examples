@@ -11,6 +11,12 @@ find_pid()
   echo $pid
 }
 
+JAVA_VER=$(java -version 2>&1 | sed -n ';s/.* version "\(.*\)\.\(.*\)\..*"/\1\2/p;')
+if [[ "$JAVA_VER" -lt 18 ]] ; then
+  echo "The Java version must be 1.8 or later!";
+  exit;
+fi
+
 case "$1" in
 
     "status")
@@ -35,6 +41,7 @@ case "$1" in
         exit;;
 
     "stop")
+        # ps -ef | grep zipkin | grep -v grep | awk '{print $2}' | xargs kill -9 > /dev/null 2>&1
         pid=$(find_pid)
         if [ "$pid" != "" ]; then
           echo "find zipkin pid: $pid , kill it."
