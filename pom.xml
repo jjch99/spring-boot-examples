@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.examples</groupId>
     <artifactId>spring-boot-examples</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    
+
     <modules>
         <module>spring-boot-example-system-service</module>
         <module>spring-boot-example-schedule</module>
@@ -21,10 +22,11 @@
         <module>spring-boot-example-websocket</module>
         <module>spring-boot-example-cache</module>
         <module>spring-boot-example-test</module>
-        <module>spring-boot-example-grpc</module>
         <module>spring-boot-example-dubbo</module>
+        <module>spring-boot-example-grpc</module>
+        <module>spring-boot-example-thrift</module>
     </modules>
-    
+
     <packaging>pom</packaging>
 
     <name>spring-boot-examples</name>

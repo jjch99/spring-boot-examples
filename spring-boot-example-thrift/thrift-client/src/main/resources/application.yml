@@ -1,0 +1,8 @@
+server:
+  port: 18090
+
+thrift:
+  service:
+    host: localhost
+    port: 15670
+    timeout: 20000

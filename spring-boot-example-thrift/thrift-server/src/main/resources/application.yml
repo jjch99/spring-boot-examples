@@ -1,0 +1,7 @@
+server:
+  port: 0
+
+thrift:
+  server:
+    port: 15670
+    type: simple
