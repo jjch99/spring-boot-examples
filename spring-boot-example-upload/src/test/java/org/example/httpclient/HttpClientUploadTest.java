@@ -1,4 +1,4 @@
-package org.example.controller;
+package org.example.httpclient;
 
 import java.io.File;
 
@@ -19,7 +19,7 @@ import junit.framework.TestCase;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class UploadTest extends TestCase {
+public class HttpClientUploadTest extends TestCase {
 
     public void testUpload() throws Exception {
 
