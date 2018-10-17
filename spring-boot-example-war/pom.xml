@@ -43,6 +43,7 @@
                 <includes>
                     <include>*.properties</include>
                     <include>*.xml</include>
+                    <include>*.yml</include>
                 </includes>
             </resource>
             <resource>
@@ -51,6 +52,7 @@
                 <excludes>
                     <exclude>*.properties</exclude>
                     <exclude>*.xml</exclude>
+                    <exclude>*.yml</exclude>
                 </excludes>
             </resource>
         </resources>
@@ -65,15 +67,32 @@
                         <!-- 打war包时class及resources文件将被打成jar包 -->
                         <!-- 这里把不要打入jar包的文件删除，打war包时再复制到 WEB-INF/classes -->
                         <!-- 不在resources配置中做排除是因为resources配置会影响到IDE -->
+                        <id>prepare</id>
                         <phase>prepare-package</phase>
                         <configuration>
                             <target>
                                 <delete verbose="true" quiet="true">
                                     <fileset dir="${project.build.outputDirectory}">
-                                        <include name="*.properties" />
-                                        <include name="*.xml" />
+                                        <include name="*.properties"/>
+                                        <include name="*.xml"/>
+                                        <include name="*.yml"/>
                                     </fileset>
                                 </delete>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <!-- 打个tar.gz包 -->
+                        <id>tar.gz</id>
+                        <phase>package</phase>
+                        <configuration>
+                            <target>
+                                <tar destfile="${project.build.directory}/${project.build.finalName}.tar.gz"
+                                     compression="gzip"
+                                     basedir="${project.build.directory}/${project.build.finalName}"/>
                             </target>
                         </configuration>
                         <goals>
@@ -99,6 +118,7 @@
                             <includes>
                                 <include>*.properties</include>
                                 <include>*.xml</include>
+                                <include>*.yml</include>
                             </includes>
                             <filtering>true</filtering>
                         </webResource>
