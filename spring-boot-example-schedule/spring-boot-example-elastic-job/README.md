@@ -12,6 +12,9 @@ mvn clean package -Dmaven.test.skip=true
 解压`elastic-job-lite-console-x.x.x.tar.gz`，进入`bin`目录执行`sh start.sh`启动，默认服务端口`8899`，通过浏览器打开即可。
 
 #### 其他 elastic-job 示例
+elastic-job-example
+> https://github.com/elasticjob/elastic-job-example
+
 LuoLiangDSGA/spring-learning boot-elasticjob
 > https://github.com/LuoLiangDSGA/spring-learning/tree/master/boot-elasticjob
 
