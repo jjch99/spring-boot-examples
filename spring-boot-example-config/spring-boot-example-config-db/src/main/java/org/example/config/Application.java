@@ -1,6 +1,6 @@
-package org.example;
+package org.example.config;
 
-import org.example.config.DatabasePropertiesLoader;
+import org.example.config.db.DatabasePropertiesLoader;
 import org.springframework.boot.Banner.Mode;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
