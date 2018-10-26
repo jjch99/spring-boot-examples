@@ -1,4 +1,4 @@
-package org.example.config.db;
+package org.example.config.listener;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

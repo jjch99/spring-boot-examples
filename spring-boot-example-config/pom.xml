@@ -11,9 +11,10 @@
 
     <artifactId>spring-boot-example-config</artifactId>
     <packaging>pom</packaging>
-    
+
     <modules>
         <module>spring-boot-example-config-db</module>
+        <module>spring-boot-example-config-apollo</module>
     </modules>
 
 </project>
