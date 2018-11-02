@@ -25,6 +25,7 @@
         <module>spring-boot-example-dubbo</module>
         <module>spring-boot-example-grpc</module>
         <module>spring-boot-example-thrift</module>
+        <module>spring-boot-example-docker</module>
     </modules>
 
     <packaging>pom</packaging>
