@@ -15,7 +15,7 @@
 mvn clean package dockerfile:build
 
 # 运行
-docker run -p 8080:8081 ${USER}/spring-boot-example-docker:0.0.1-SNAPSHOT
+docker run -p 8080:8081 spring-boot-example-docker:0.0.1-SNAPSHOT
 ```
 
 ### 参考
