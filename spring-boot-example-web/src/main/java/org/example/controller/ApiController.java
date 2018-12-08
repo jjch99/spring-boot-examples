@@ -5,6 +5,7 @@ import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
@@ -15,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 public class ApiController {
 
-    @RequestMapping("/api/hello")
+    @RequestMapping(value = "/api/hello", method = { RequestMethod.GET, RequestMethod.POST })
     public Object hello(HttpServletRequest request) {
 
         try {

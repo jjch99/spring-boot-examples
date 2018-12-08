@@ -1,11 +1,15 @@
 package org.example.controller;
 
+import org.example.dto.HelloRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -16,13 +20,13 @@ public class HelloController {
     @Value("${hello.target:Tom}")
     private String target;
 
-    @RequestMapping("/")
-    public String index() {
+    @RequestMapping(value = "/", method = { RequestMethod.GET, RequestMethod.POST })
+    public String index(@ApiParam HelloRequest request) {
         log.info("hello");
         return "Hello " + target;
     }
 
-    @RequestMapping("/exception")
+    @GetMapping("/exception")
     public String exception() {
         log.info("exception");
         throw new RuntimeException();
