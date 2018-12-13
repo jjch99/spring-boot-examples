@@ -85,7 +85,8 @@
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <version>${mybatis-generator-maven-plugin.version}</version>
                 <configuration>
-                    <configurationFile>${basedir}/src/main/resources/mybatis-generator/generatorConfig.xml</configurationFile>
+                    <configurationFile>${basedir}/src/main/resources/mybatis/generator/generatorConfig.xml
+                    </configurationFile>
                     <verbose>true</verbose>
                     <overwrite>true</overwrite>
                 </configuration>
@@ -95,7 +96,7 @@
                         <goals>
                             <goal>generate</goal>
                         </goals>
-                        <!-- 不绑定到生命周期的任何阶段，只在手工指定命令是运行 -->
+                        <!-- 不绑定到生命周期的任何阶段，只在手工指定命令时运行 -->
                         <phase>none</phase>
                     </execution>
                 </executions>

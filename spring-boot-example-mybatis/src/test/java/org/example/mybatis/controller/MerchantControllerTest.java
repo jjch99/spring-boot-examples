@@ -1,5 +1,7 @@
 package org.example.mybatis.controller;
 
+import java.util.List;
+
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +26,12 @@ public class MerchantControllerTest {
     public void testInfo() {
         String body = this.restTemplate.getForObject("/merchant/info?id=1", String.class);
         Assertions.assertThat(body).isNull();
+    }
+
+    @Test
+    public void testList() {
+        List list = this.restTemplate.getForObject("/merchant/list", List.class);
+        Assertions.assertThat(list).isEmpty();
     }
 
 }

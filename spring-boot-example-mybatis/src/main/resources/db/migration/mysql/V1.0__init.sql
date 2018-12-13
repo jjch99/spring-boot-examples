@@ -1,15 +1,19 @@
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 
-drop table if exists merchant;
-
-create table merchant
+DROP TABLE IF EXISTS MERCHANT;
+CREATE TABLE MERCHANT
 (
-    id bigint(11) unsigned not null auto_increment,
-	mer_id varchar(32) not null,
-	mer_name varchar(128) not null,
-	address varchar(200),
-	create_time date,
-	primary key (id)
+    ID               bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+	MER_ID           VARCHAR(32)         NOT NULL COMMENT '商户ID',
+	MER_NAME         VARCHAR(128)        NOT NULL COMMENT '商户名称',
+	ADDRESS          VARCHAR(200)        COMMENT '地址',
+	STATUS           TINYINT(2)          NOT NULL DEFAULT '1' COMMENT '状态:1待审核,2正常',
+	CREATE_TIME      TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+	MODIFY_TIME      TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT'更新时间',
+	PRIMARY KEY (ID),
+	UNIQUE INDEX IDX_MERCHANT_1(MER_ID)
 )
-ENGINE=InnoDB;
+ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='商户表';
 
-create unique index merchant_uk on merchant(mer_id);
+SET FOREIGN_KEY_CHECKS = 1;
