@@ -2,6 +2,7 @@ package org.example.config;
 
 import org.example.job.DemoSimpleJob;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,16 +11,17 @@ import com.dangdang.ddframe.job.config.simple.SimpleJobConfiguration;
 import com.dangdang.ddframe.job.lite.api.JobScheduler;
 import com.dangdang.ddframe.job.lite.config.LiteJobConfiguration;
 import com.dangdang.ddframe.job.lite.spring.api.SpringJobScheduler;
-import com.dangdang.ddframe.job.reg.base.CoordinatorRegistryCenter;
+import com.dangdang.ddframe.job.reg.zookeeper.ZookeeperRegistryCenter;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Configuration
+@ConditionalOnBean(ZookeeperRegistryCenter.class)
 public class JobConfig {
 
     @Autowired
-    private CoordinatorRegistryCenter registryCenter;
+    private ZookeeperRegistryCenter registryCenter;
 
     @Bean(initMethod = "init")
     public JobScheduler demoJobScheduler(DemoSimpleJob demoSimpleJob) {
