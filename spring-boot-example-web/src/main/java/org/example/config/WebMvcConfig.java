@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.example.annotation.JsonParamHandlerMethodArgumentResolver;
 import org.example.interceptor.MyInterceptor;
+import org.example.utils.StringToDateConverter;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -64,6 +65,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public Validator getValidator() {
         return validator();
+    }
+
+    @Bean
+    public StringToDateConverter stringToDateConverter() {
+        return new StringToDateConverter();
     }
 
 }
