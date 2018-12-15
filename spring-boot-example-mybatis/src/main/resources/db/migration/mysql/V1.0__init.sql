@@ -4,7 +4,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS MERCHANT;
 CREATE TABLE MERCHANT
 (
-    ID               bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+	ID               bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 	MER_ID           VARCHAR(32)         NOT NULL COMMENT '商户ID',
 	MER_NAME         VARCHAR(128)        NOT NULL COMMENT '商户名称',
 	ADDRESS          VARCHAR(200)        COMMENT '地址',
