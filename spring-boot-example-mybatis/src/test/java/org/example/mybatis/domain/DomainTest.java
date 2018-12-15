@@ -1,4 +1,4 @@
-package org.example.mybatis.entity;
+package org.example.mybatis.domain;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import com.google.common.reflect.ClassPath;
 
-public class EntityTest {
+public class DomainTest {
 
     private static final Map<Class<?>, Object> DEFAULTS;
 
@@ -67,48 +67,9 @@ public class EntityTest {
                         m.invoke(obj2, getDefaultValue(paramTypes[0]));
                     }
                 }
+                obj1.hashCode();
                 obj1.equals(obj2);
                 obj1.toString();
-            }
-        }
-    }
-
-    @Test
-    public void exampleTest() throws Exception {
-        String packageName = getClass().getPackage().getName();
-        final ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        for (final ClassPath.ClassInfo info : ClassPath.from(loader).getTopLevelClasses()) {
-            if (info.getName().startsWith(packageName) && info.getName().endsWith("Example")) {
-                final Class<?> clazz = info.load();
-                if (clazz.isInterface() || Modifier.isAbstract(clazz.getModifiers())) {
-                    continue;
-                }
-                Object obj = clazz.newInstance();
-                Method createCriteria = clazz.getMethod("createCriteria");
-                Object criteria = createCriteria.invoke(obj);
-
-                Method[] methods = criteria.getClass().getMethods();
-                for (Method m : methods) {
-                    if (!Modifier.isPublic(m.getModifiers()) || !m.getName().startsWith("and")) {
-                        continue;
-                    }
-                    if (m.getParameterCount() == 0) {
-                        m.invoke(criteria);
-                    } else {
-                        Class<?>[] paramTypes = m.getParameterTypes();
-                        Object[] args = new Object[paramTypes.length];
-                        try {
-                            m.invoke(criteria, args);
-                        } catch (Exception e) {
-                            // ignore
-                        }
-                        for (int i = 0; i < paramTypes.length; i++) {
-                            Class<?> paramType = paramTypes[i];
-                            args[i] = getDefaultValue(paramType);
-                        }
-                        m.invoke(criteria, args);
-                    }
-                }
             }
         }
     }
