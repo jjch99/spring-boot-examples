@@ -1,9 +1,9 @@
 # spring-boot-examples
-Examples with Spring Boot.
+Spring Boot Examples
 
 [Spring Boot Reference Guide](https://docs.spring.io/spring-boot/docs/1.5.x/reference/htmlsingle/)
 
-## Other samples
+## Other samples/examples
 
 Official spring-boot-samples
 > https://github.com/spring-projects/spring-boot/tree/1.5.x/spring-boot-samples
