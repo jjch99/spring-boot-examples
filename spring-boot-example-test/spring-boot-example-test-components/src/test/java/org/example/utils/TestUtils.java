@@ -1,9 +1,9 @@
 package org.example.utils;
 
-import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.*;
+
+import org.mockito.Mockito;
 
 public class TestUtils {
 
@@ -50,12 +50,13 @@ public class TestUtils {
         Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
             try {
-                PropertyDescriptor pd = new PropertyDescriptor(field.getName(), clazz);
-                Method m = pd.getWriteMethod();
-                if (m != null) {
-                    Class<?>[] paramTypes = m.getParameterTypes();
-                    m.invoke(obj, getDefaultValue(paramTypes[0]));
+                Class fieldType = field.getType();
+                Object fieldValue = getDefaultValue(fieldType);
+                if (fieldValue == null) {
+                    fieldValue = Mockito.mock(fieldType);
                 }
+                field.setAccessible(true);
+                field.set(obj, fieldValue);
             } catch (Exception e) {
                 // ignore
             }
