@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
 <project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+		xmlns="http://maven.apache.org/POM/4.0.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-    <parent>
+	<parent>
 		<groupId>org.examples</groupId>
 		<artifactId>spring-boot-examples</artifactId>
 		<version>0.1.0-SNAPSHOT</version>
 	</parent>
-	<modules>
-		<module>spring-boot-example-dynamic-datasource</module>
-		<module>spring-boot-example-master-slave-datasource</module>
-        <module>spring-boot-example-mixed-datasource</module>
-        <module>spring-boot-example-sharding-jdbc</module>
-    </modules>
-	
+
 	<artifactId>spring-boot-example-multi-datasource</artifactId>
 	<packaging>pom</packaging>
+
+    <modules>
+        <module>spring-boot-example-dynamic-datasource</module>
+        <module>spring-boot-example-multiple-datasource</module>
+        <module>spring-boot-example-sharding-jdbc</module>
+    </modules>
 
 </project>

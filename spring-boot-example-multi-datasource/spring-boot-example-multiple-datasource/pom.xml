@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spring-boot-example-master-slave-datasource</artifactId>
+    <artifactId>spring-boot-example-multiple-datasource</artifactId>
 
     <dependencies>
         <dependency>
@@ -71,5 +71,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
 
 </project>

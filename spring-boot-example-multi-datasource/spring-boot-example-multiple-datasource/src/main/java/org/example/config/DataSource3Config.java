@@ -5,42 +5,36 @@ import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 
 @Configuration
-@MapperScan(basePackages = "com.example.springboot.dao.master", sqlSessionFactoryRef = "masterSqlSessionFactory")
-public class MasterDataSourcesConfig {
+@MapperScan(basePackages = "org.example.dao.ds3", sqlSessionFactoryRef = "sqlSessionFactory3")
+public class DataSource3Config {
 
-    private static final String MAPPER_LOCATION = "classpath:mapper/master/*.xml";
+    private static final String MAPPER_LOCATION = "classpath:mapper/ds3/*.xml";
 
-    @ConfigurationProperties("spring.datasource.master")
-    @Primary
-    @Bean(name = "masterDataSource")
+    @ConfigurationProperties("spring.datasource.ds3")
+    @Bean(name = "dataSource3")
     public DataSource dataSource() {
-        // return DataSourceBuilder.create().build();
-        return new DruidDataSource();
+        return DruidDataSourceBuilder.create().build();
     }
 
-    @Bean(name = "masterTransactionManager")
-    @Primary
-    public PlatformTransactionManager masterTransactionManager() {
+    @Bean(name = "transactionManager3")
+    public PlatformTransactionManager transactionManager() {
         return new DataSourceTransactionManager(dataSource());
     }
 
-    @Bean(name = "masterSqlSessionFactory")
-    @Primary
-    public SqlSessionFactory sqlSessionFactory(@Qualifier("masterDataSource") DataSource dataSource) throws Exception {
+    @Bean(name = "sqlSessionFactory3")
+    public SqlSessionFactory sqlSessionFactory() throws Exception {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource);
+        sessionFactory.setDataSource(dataSource());
         sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(MAPPER_LOCATION));
         return sessionFactory.getObject();
     }

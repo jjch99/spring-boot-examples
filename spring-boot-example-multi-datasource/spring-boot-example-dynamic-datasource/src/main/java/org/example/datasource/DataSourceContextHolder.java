@@ -2,7 +2,7 @@ package org.example.datasource;
 
 public class DataSourceContextHolder {
 
-    private static final ThreadLocal<String> CONTEXT_HOLDER = new ThreadLocal<String>();
+    private static final ThreadLocal<String> CONTEXT_HOLDER = new ThreadLocal<>();
 
     public static void setDataSource(String dataSource) {
         CONTEXT_HOLDER.set(dataSource);

@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@MapperScan("com.example.springboot.dao")
+@MapperScan("org.example.dao")
 public class SessionFactoryConfig {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -38,7 +38,7 @@ public class SessionFactoryConfig {
             SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
             sqlSessionFactoryBean.setDataSource(dataSource);
             sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:mybatis/mapper/*.xml"));
-            sqlSessionFactoryBean.setTypeAliasesPackage("com.example.springboot.entity");
+            sqlSessionFactoryBean.setTypeAliasesPackage("org.example.entity");
             return sqlSessionFactoryBean;
         } catch (IOException ex) {
             logger.error(ExceptionUtils.getMessage(ex), ex);
