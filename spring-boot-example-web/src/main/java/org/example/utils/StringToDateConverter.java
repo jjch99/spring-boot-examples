@@ -3,6 +3,7 @@ package org.example.utils;
 import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.springframework.core.convert.converter.Converter;
 
@@ -22,6 +23,9 @@ public class StringToDateConverter implements Converter<String, Date> {
             return null;
         }
         try {
+            if (StringUtils.isNumeric(source)) {
+                return new Date(NumberUtils.toLong(source));
+            }
             if (DATE_FORMAT_PATTERN.length() == source.length()) {
                 return FastDateFormat.getInstance(DATE_FORMAT_PATTERN).parse(source);
             }
