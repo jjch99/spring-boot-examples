@@ -12,7 +12,9 @@
 	<modules>
 		<module>spring-boot-example-dynamic-datasource</module>
 		<module>spring-boot-example-master-slave-datasource</module>
-	</modules>
+        <module>spring-boot-example-mixed-datasource</module>
+        <module>spring-boot-example-sharding-jdbc</module>
+    </modules>
 	
 	<artifactId>spring-boot-example-multi-datasource</artifactId>
 	<packaging>pom</packaging>
