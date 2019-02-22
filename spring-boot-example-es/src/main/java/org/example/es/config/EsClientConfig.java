@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class EsClientConfig {
 
-    @Value("${spring.data.elasticsearch.cluster-nodes}")
+    @Value("${elasticsearch.cluster-nodes}")
     private String clusterNodes;
 
     @Bean(destroyMethod = "close")
