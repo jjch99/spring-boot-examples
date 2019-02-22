@@ -1,5 +1,7 @@
 package org.example.aspect;
 
+import java.util.Arrays;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -22,7 +24,7 @@ public class ApiInterceptor {
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
 
         Object[] args = joinPoint.getArgs();
-        log.info("arg num: " + args.length);
+        log.info("arg num: " + args.length + ", args: " + Arrays.asList(args));
 
         Object ret = null;
         try {

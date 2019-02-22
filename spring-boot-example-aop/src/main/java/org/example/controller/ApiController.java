@@ -33,4 +33,14 @@ public class ApiController {
         return "";
     }
 
+    @RequestMapping("/api/greeting")
+    public Object greeting(String s) {
+        return "OK";
+    }
+
+    @RequestMapping("/api/error")
+    public Object error(String s) {
+        throw new RuntimeException("error");
+    }
+
 }
