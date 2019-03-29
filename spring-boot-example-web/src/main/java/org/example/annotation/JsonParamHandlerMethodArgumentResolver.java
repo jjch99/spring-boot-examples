@@ -4,6 +4,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.core.MethodParameter;
+import org.springframework.validation.AbstractBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -48,8 +49,8 @@ public class JsonParamHandlerMethodArgumentResolver implements HandlerMethodArgu
             if (parameter.hasParameterAnnotation(Valid.class)
                     || parameter.hasParameterAnnotation(Validated.class)
                     || parameter.hasParameterAnnotation(NotNull.class)) {
-                // TODO
-                // throw new MethodArgumentNotValidException(parameter, null);
+                BindingResult bindingResult = new NullBeanBindingResult(parameter.getParameterName());
+                throw new MethodArgumentNotValidException(parameter, bindingResult);
             }
             return null;
         }
@@ -67,6 +68,24 @@ public class JsonParamHandlerMethodArgumentResolver implements HandlerMethodArgu
             }
         }
         return obj;
+    }
+
+    private static class NullBeanBindingResult extends AbstractBindingResult {
+
+        public NullBeanBindingResult(String objectName) {
+            super(objectName);
+        }
+
+        @Override
+        public Object getTarget() {
+            return null;
+        }
+
+        @Override
+        protected Object getActualFieldValue(String field) {
+            return null;
+        }
+
     }
 
 }
