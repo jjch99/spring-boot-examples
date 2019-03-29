@@ -14,7 +14,6 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -24,13 +23,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class JsonParamHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
-    // 也可以其他地方初始化了传进来
-    private static final ObjectMapper mapper = initMapper();
+    private final ObjectMapper mapper;
 
-    private static ObjectMapper initMapper() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        return mapper;
+    public JsonParamHandlerMethodArgumentResolver(ObjectMapper mapper) {
+        this.mapper = mapper;
     }
 
     @Override
@@ -46,6 +42,7 @@ public class JsonParamHandlerMethodArgumentResolver implements HandlerMethodArgu
         JsonParam a = parameter.getParameterAnnotation(JsonParam.class);
         String val = webRequest.getParameter(a.value());
         if (val == null) {
+            // 参数缺失
             if (parameter.hasParameterAnnotation(Valid.class)
                     || parameter.hasParameterAnnotation(Validated.class)
                     || parameter.hasParameterAnnotation(NotNull.class)) {

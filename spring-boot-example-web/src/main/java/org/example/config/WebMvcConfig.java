@@ -6,6 +6,7 @@ import java.util.List;
 import org.example.annotation.JsonParamHandlerMethodArgumentResolver;
 import org.example.interceptor.MyInterceptor;
 import org.example.utils.StringToDateConverter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,8 +20,13 @@ import org.springframework.web.servlet.config.annotation.ContentNegotiationConfi
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
+
+    @Autowired
+    private ObjectMapper mapper;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -29,7 +35,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(new JsonParamHandlerMethodArgumentResolver());
+        argumentResolvers.add(new JsonParamHandlerMethodArgumentResolver(mapper));
     }
 
     @Override
