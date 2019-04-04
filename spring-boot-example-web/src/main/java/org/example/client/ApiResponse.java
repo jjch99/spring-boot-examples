@@ -13,7 +13,7 @@ public class ApiResponse {
 
     private String message;
 
-    private String data;
+    private String rawData;
 
     public boolean success() {
         return "0".equals(this.code);

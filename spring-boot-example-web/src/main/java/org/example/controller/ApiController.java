@@ -36,7 +36,7 @@ public class ApiController {
         resp.put("msg", "成功");
         JSONObject data = new JSONObject();
         data.put("status", "OK");
-        resp.put("data", data);
+        resp.put("rawData", data);
         return resp;
 
     }

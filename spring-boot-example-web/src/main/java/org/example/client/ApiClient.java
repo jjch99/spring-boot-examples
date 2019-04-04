@@ -71,7 +71,7 @@ public class ApiClient {
         T respObj = null;
         try {
             respObj = JSON.parseObject(response, clazz);
-            respObj.setData(response);
+            respObj.setRawData(response);
         } catch (JSONException e) {
             log.error("response content json parse error: {}", response, e);
             throw new ApiException("500", "response content json parse error", e);
@@ -110,7 +110,7 @@ public class ApiClient {
         Response response = httpClient.newCall(request).execute();
         String responseBody = response.body().string();
         if (!response.isSuccessful()) {
-            log.debug("retrun data: {}", responseBody);
+            log.debug("retrun rawData: {}", responseBody);
         }
         return responseBody;
     }
