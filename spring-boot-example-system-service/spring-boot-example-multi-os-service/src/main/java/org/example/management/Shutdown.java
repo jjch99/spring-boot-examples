@@ -51,7 +51,7 @@ public class Shutdown {
             String password = prop.getProperty("security.user.password");
             String auth = Base64Utils.encodeToString((username + ":" + password).getBytes());
 
-            UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl("http://127.0.0.1")
+            UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl("httpclient://127.0.0.1")
                     .port(port)
                     .path(ctx)
                     .path(path);

@@ -18,7 +18,7 @@ public class DemoClient {
 
     public static void main(String[] args) throws InterruptedException {
 
-        String zipkinEndpoint = "http://localhost:9411/api/v2/spans";
+        String zipkinEndpoint = "httpclient://localhost:9411/api/v2/spans";
         Sender sender = OkHttpSender.newBuilder().encoding(Encoding.JSON).endpoint(zipkinEndpoint)
                 .connectTimeout(1000).writeTimeout(1000).build();
         AsyncReporter reporter = AsyncReporter.create(sender);

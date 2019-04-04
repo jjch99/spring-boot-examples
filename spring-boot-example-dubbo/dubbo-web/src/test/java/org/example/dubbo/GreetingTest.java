@@ -23,7 +23,7 @@ public class GreetingTest {
     public void greeting() throws Exception {
 
         final Request request = new Request.Builder()
-                .url("http://localhost:18080/hello?name=world")
+                .url("httpclient://localhost:18080/hello?name=world")
                 .get()
                 .build();
         Response response = okHttpClient().newCall(request).execute();

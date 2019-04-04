@@ -17,7 +17,7 @@ dubbo:
 
 zipkin:
   tracing:
-    endpoint: http://devhost:8411/api/v2/spans
+    endpoint: httpclient://devhost:8411/api/v2/spans
     kafka:
       bootstrap-servers: devhost:8093
       topic: zipkin

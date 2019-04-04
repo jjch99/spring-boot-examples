@@ -14,7 +14,7 @@ public class GreetingController {
 
     @RequestMapping("/hello")
     public String hello(String name) {
-        String uri = UriComponentsBuilder.fromHttpUrl("http://localhost:18081/hello")
+        String uri = UriComponentsBuilder.fromHttpUrl("httpclient://localhost:18081/hello")
                 .queryParam("name", name)
                 .build().toUriString();
         return restTemplate.getForObject(uri, String.class);

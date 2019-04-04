@@ -36,7 +36,7 @@ public class RestHighLevelClientTest {
 
     @Before
     public void init() {
-        restClient = RestClient.builder(new HttpHost("eshost", 8992, "http")).build();
+        restClient = RestClient.builder(new HttpHost("eshost", 8992, "httpclient")).build();
         highLevelClient = new RestHighLevelClient(restClient);
     }
 
