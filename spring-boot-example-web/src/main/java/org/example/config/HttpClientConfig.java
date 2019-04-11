@@ -27,7 +27,7 @@ public class HttpClientConfig {
     @Value("${httpclient.socketTimeout:20000}")
     private Integer socketTimeout;
 
-    @Bean
+    @Bean(destroyMethod = "close")
     public PoolingHttpClientConnectionManager httpClientConnectionManager() {
         PoolingHttpClientConnectionManager httpClientConnectionManager = new PoolingHttpClientConnectionManager();
         // 最大连接数
@@ -37,12 +37,13 @@ public class HttpClientConfig {
         return httpClientConnectionManager;
     }
 
-    @Bean
+    @Bean(destroyMethod = "close")
     public CloseableHttpClient httpClient() {
         HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
         httpClientBuilder.setConnectionManager(httpClientConnectionManager());
         // 使用短连接(关闭连接复用)
         httpClientBuilder.setConnectionReuseStrategy(NoConnectionReuseStrategy.INSTANCE);
+        httpClientBuilder.setDefaultRequestConfig(requestConfig());
         return httpClientBuilder.build();
     }
 
