@@ -34,12 +34,15 @@
                         <id>default</id>
                         <goals>
                             <goal>build</goal>
+                            <!--
+                            <goal>push</goal>
+                            -->
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
-                    <tag>${project.version}</tag>
                     <repository>${project.artifactId}</repository>
+                    <tag>${project.version}</tag>
                     <buildArgs>
                         <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
                     </buildArgs>
