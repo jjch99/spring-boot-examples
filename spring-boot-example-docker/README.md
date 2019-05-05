@@ -19,7 +19,12 @@ docker run -p 8080:8081 spring-boot-example-docker:0.0.1-SNAPSHOT
 ```
 
 ### 参考
+[Docker — 从入门到实践](https://yeasy.gitbooks.io/docker_practice/)
+
 [docker-for-mac](https://docs.docker.com/docker-for-mac/)
 
 [使用Spring Cloud与Docker实战微服务](https://eacdy.gitbooks.io/spring-cloud-book/content/)
 
+[k8s-docker-for-mac](https://github.com/maguowei/k8s-docker-for-mac)
+
+[Docker 用户使用 kubectl 命令指南](https://kubernetes.io/zh/docs/user-guide/docker-cli-to-kubectl/)
