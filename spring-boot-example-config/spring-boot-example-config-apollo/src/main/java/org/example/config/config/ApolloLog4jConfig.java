@@ -16,8 +16,10 @@ import org.apache.logging.log4j.core.config.AppenderRef;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.Configurator;
 import org.apache.logging.log4j.core.config.LoggerConfig;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
@@ -29,14 +31,14 @@ import com.ctrip.framework.apollo.model.ConfigChange;
 /**
  * 在Apollo配置中心设置 日志级别&根日志的Appender，支持热更新
  * <p>
- * 可做成开箱即用的独立的包
+ * 这里考虑兼容非SpringBoot，使用 {@link BeanFactoryPostProcessor} 作为加载点，没有用到SpringBoot的类<br/>
+ * SpringBoot环境下可通过 <b>spring.factories<b/> {@link ApplicationListener} 等做成开箱即用
  *
  * @see org.springframework.context.ApplicationContextInitializer
  * @see org.springframework.context.ApplicationListener
- * @see org.springframework.boot.context.event.ApplicationPreparedEvent
  */
 @Component
-public class ApolloLog4jConfig implements InitializingBean {
+public class ApolloLog4jConfig implements BeanFactoryPostProcessor, EnvironmentAware {
 
     private static final String LOG4J_APOLLO_NAMESPACE_KEY = "log4j.apollo.namespace";
 
@@ -55,11 +57,15 @@ public class ApolloLog4jConfig implements InitializingBean {
      */
     private final Level originalRootLevel = LogManager.getRootLogger().getLevel();
 
-    @Autowired
     private Environment env;
 
     @Override
-    public void afterPropertiesSet() {
+    public void setEnvironment(Environment environment) {
+        this.env = environment;
+    }
+
+    @Override
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) {
         log4jConfig();
     }
 

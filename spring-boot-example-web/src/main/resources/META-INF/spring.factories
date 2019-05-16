@@ -1,0 +1,3 @@
+org.springframework.context.ApplicationListener=org.example.utils.MyApplicationListener
+org.springframework.context.ApplicationContextInitializer=org.example.utils.MyApplicationContextInitializer
+org.springframework.boot.env.EnvironmentPostProcessor=org.example.utils.MyEnvironmentPostProcessor
