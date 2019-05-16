@@ -27,15 +27,16 @@ import com.ctrip.framework.apollo.enums.PropertyChangeType;
 import com.ctrip.framework.apollo.model.ConfigChange;
 
 /**
- * 从Apollo配置中心获取 日志级别&根日志的Appender 配置，支持热更新
+ * 在Apollo配置中心设置 日志级别&根日志的Appender，支持热更新
  * <p>
  * 可做成开箱即用的独立的包
  *
  * @see org.springframework.context.ApplicationContextInitializer
  * @see org.springframework.context.ApplicationListener
+ * @see org.springframework.boot.context.event.ApplicationPreparedEvent
  */
 @Component
-public class Log4jConfig implements InitializingBean {
+public class ApolloLog4jConfig implements InitializingBean {
 
     private static final String LOG4J_APOLLO_NAMESPACE_KEY = "log4j.apollo.namespace";
 
@@ -56,6 +57,11 @@ public class Log4jConfig implements InitializingBean {
 
     @Autowired
     private Environment env;
+
+    @Override
+    public void afterPropertiesSet() {
+        log4jConfig();
+    }
 
     /**
      * 设置日志级别
@@ -177,11 +183,6 @@ public class Log4jConfig implements InitializingBean {
                 }
             });
         });
-    }
-
-    @Override
-    public void afterPropertiesSet() {
-        log4jConfig();
     }
 
 }
