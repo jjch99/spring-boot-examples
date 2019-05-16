@@ -116,12 +116,8 @@ public class ApolloLog4jConfig implements InitializingBean {
 
         LoggerConfig loggerConfig = configuration.getRootLogger();
         List<AppenderRef> refs = loggerConfig.getAppenderRefs();
-        refs.forEach(v -> {
-            loggerConfig.removeAppender(v.getRef());
-        });
-        Stream.of(appenderNames).forEach(v -> {
-            loggerConfig.addAppender(appenders.get(v), null, null);
-        });
+        refs.forEach(v -> loggerConfig.removeAppender(v.getRef()));
+        Stream.of(appenderNames).forEach(v -> loggerConfig.addAppender(appenders.get(v), null, null));
         ctx.updateLoggers();
     }
 
