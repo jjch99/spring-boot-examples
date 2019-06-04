@@ -28,6 +28,7 @@
         <module>spring-boot-example-docker</module>
         <module>spring-boot-example-es</module>
         <module>spring-boot-example-vue</module>
+        <module>spring-boot-example-commandline</module>
     </modules>
 
     <packaging>pom</packaging>
