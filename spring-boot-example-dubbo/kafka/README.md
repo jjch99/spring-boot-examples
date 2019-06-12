@@ -15,7 +15,7 @@ ssl.key.password=server1234567
 ssl.truststore.location=keys/kafka-server-ts.jks
 ssl.truststore.password=server1234567
 ssl.client.auth=required
-listeners=PLAINTEXT://:8092,SSL://:8093
+listeners=PLAINTEXT://:9092,SSL://:9093
 ```
 
 ### 验证
@@ -31,11 +31,11 @@ ssl.key.password=client1234567
 
 启动命令行消费者
 ```
-bin/kafka-console-consumer.sh --bootstrap-server localhost:8093 --topic test --from-beginning --consumer.config config/client-ssl.properties
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9093 --topic test --from-beginning --consumer.config config/client-ssl.properties
 ```
 
 启动命令行生产者
 ```
-bin/kafka-console-producer.sh --broker-list localhost:8093 --topic test --producer.config config/client-ssl.properties
+bin/kafka-console-producer.sh --broker-list localhost:9093 --topic test --producer.config config/client-ssl.properties
 ```
 输入消息内容并回车发送消息，观察消费者控制台内容输出。

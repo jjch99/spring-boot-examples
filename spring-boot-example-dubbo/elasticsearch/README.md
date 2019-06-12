@@ -40,7 +40,7 @@ vi config/elasticsearch.yml
 cluster.name: my-elasticsearch-cluster
 node.name:  node1
 network.host: 0.0.0.0
-http.port: 8200
+http.port: 9200
 ```
 
 显示命令参数
