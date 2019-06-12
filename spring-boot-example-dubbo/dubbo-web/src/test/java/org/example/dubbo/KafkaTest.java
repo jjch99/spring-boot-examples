@@ -22,7 +22,7 @@ public class KafkaTest {
         log.info(InetAddress.getLocalHost().getCanonicalHostName());
 
         Properties props = new Properties();
-        props.put("bootstrap.servers", "devhost:8093");
+        props.put("bootstrap.servers", "localhost:9093");
         props.put("acks", "all");
         props.put("retries", 0);
         props.put("batch.size", 16384);

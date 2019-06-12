@@ -27,7 +27,7 @@ public class KafkaTest {
         log.info(InetAddress.getLocalHost().getCanonicalHostName());
 
         Properties props = new Properties();
-        props.put("bootstrap.servers", "devhost:8093");
+        props.put("bootstrap.servers", "localhost:9093");
         props.put("acks", "all");
         props.put("retries", 0);
         props.put("batch.size", 16384);
@@ -61,7 +61,7 @@ public class KafkaTest {
     public void consumerMessage() {
 
         final Properties props = new Properties();
-        props.put("bootstrap.servers", "devhost:8093");
+        props.put("bootstrap.servers", "localhost:9093");
         props.put("group.id", "test");
         props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");

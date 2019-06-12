@@ -24,9 +24,9 @@ zipkin-server 及相关说明
 ```
 zipkin:
   tracing:
-    endpoint: http://devhost:8411/api/v2/spans
+    endpoint: http://localhost:9411/api/v2/spans
     kafka:
-      bootstrap-servers: devhost:8092
+      bootstrap-servers: localhost:9092
       topic: zipkin
 ```
 
