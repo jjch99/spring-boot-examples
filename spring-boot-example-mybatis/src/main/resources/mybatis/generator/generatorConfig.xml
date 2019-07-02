@@ -65,7 +65,7 @@
            - 生成的java/xml文件尽量不要改动，如果要增加自定义SQL操作，建议通过子类（继承）、新增 XxxMapperExt.xml 等方式扩展；
            - 关于 generatedKey: http://www.mybatis.org/generator/configreference/generatedKey.html
          -->
-        <table tableName="MERCHANT" domainObjectName="Merchant"
+        <table tableName="merchant" domainObjectName="Merchant"
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="false">

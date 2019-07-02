@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MerchantController {
 
     @Autowired
-    MerchantService merchantService;
+    private MerchantService merchantService;
 
     @RequestMapping("/info")
     public Object info(Long id) {
@@ -22,6 +22,11 @@ public class MerchantController {
     @RequestMapping("/list")
     public List list() {
         return merchantService.list();
+    }
+
+    @RequestMapping("/count")
+    public List count() {
+        return merchantService.count();
     }
 
 }

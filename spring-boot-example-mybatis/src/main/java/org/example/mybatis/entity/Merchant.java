@@ -18,6 +18,8 @@ public class Merchant implements Serializable {
 
     private Date modifyTime;
 
+    private Byte isDel;
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -74,5 +76,13 @@ public class Merchant implements Serializable {
 
     public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
+    }
+
+    public Byte getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(Byte isDel) {
+        this.isDel = isDel;
     }
 }

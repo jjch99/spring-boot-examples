@@ -2,13 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.example.mybatis.dao.MerchantMapper" >
   <resultMap id="BaseResultMap" type="org.example.mybatis.entity.Merchant" >
-    <id column="ID" property="id" jdbcType="BIGINT" />
-    <result column="MER_ID" property="merId" jdbcType="VARCHAR" />
-    <result column="MER_NAME" property="merName" jdbcType="VARCHAR" />
-    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
-    <result column="STATUS" property="status" jdbcType="TINYINT" />
-    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="MODIFY_TIME" property="modifyTime" jdbcType="TIMESTAMP" />
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="mer_id" property="merId" jdbcType="VARCHAR" />
+    <result column="mer_name" property="merName" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="is_del" property="isDel" jdbcType="TINYINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    ID, MER_ID, MER_NAME, ADDRESS, STATUS, CREATE_TIME, MODIFY_TIME
+    id, mer_id, mer_name, address, status, create_time, modify_time, is_del
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.example.mybatis.entity.MerchantExample" >
     select
@@ -78,7 +79,7 @@
     </if>
     'false' as QUERYID,
     <include refid="Base_Column_List" />
-    from MERCHANT
+    from merchant
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -89,15 +90,15 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from MERCHANT
-    where ID = #{id,jdbcType=BIGINT}
+    from merchant
+    where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from MERCHANT
-    where ID = #{id,jdbcType=BIGINT}
+    delete from merchant
+    where id = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="org.example.mybatis.entity.MerchantExample" >
-    delete from MERCHANT
+    delete from merchant
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -106,37 +107,40 @@
     <selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into MERCHANT (ID, MER_ID, MER_NAME, 
-      ADDRESS, STATUS, CREATE_TIME, 
-      MODIFY_TIME)
+    insert into merchant (id, mer_id, mer_name, 
+      address, status, create_time, 
+      modify_time, is_del)
     values (#{id,jdbcType=BIGINT}, #{merId,jdbcType=VARCHAR}, #{merName,jdbcType=VARCHAR}, 
       #{address,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{modifyTime,jdbcType=TIMESTAMP})
+      #{modifyTime,jdbcType=TIMESTAMP}, #{isDel,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="org.example.mybatis.entity.Merchant" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into MERCHANT
+    insert into merchant
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      ID,
+      id,
       <if test="merId != null" >
-        MER_ID,
+        mer_id,
       </if>
       <if test="merName != null" >
-        MER_NAME,
+        mer_name,
       </if>
       <if test="address != null" >
-        ADDRESS,
+        address,
       </if>
       <if test="status != null" >
-        STATUS,
+        status,
       </if>
       <if test="createTime != null" >
-        CREATE_TIME,
+        create_time,
       </if>
       <if test="modifyTime != null" >
-        MODIFY_TIME,
+        modify_time,
+      </if>
+      <if test="isDel != null" >
+        is_del,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -159,37 +163,43 @@
       <if test="modifyTime != null" >
         #{modifyTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=TINYINT},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="org.example.mybatis.entity.MerchantExample" resultType="java.lang.Integer" >
-    select count(*) from MERCHANT
+    select count(*) from merchant
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update MERCHANT
+    update merchant
     <set >
       <if test="record.id != null" >
-        ID = #{record.id,jdbcType=BIGINT},
+        id = #{record.id,jdbcType=BIGINT},
       </if>
       <if test="record.merId != null" >
-        MER_ID = #{record.merId,jdbcType=VARCHAR},
+        mer_id = #{record.merId,jdbcType=VARCHAR},
       </if>
       <if test="record.merName != null" >
-        MER_NAME = #{record.merName,jdbcType=VARCHAR},
+        mer_name = #{record.merName,jdbcType=VARCHAR},
       </if>
       <if test="record.address != null" >
-        ADDRESS = #{record.address,jdbcType=VARCHAR},
+        address = #{record.address,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null" >
-        STATUS = #{record.status,jdbcType=TINYINT},
+        status = #{record.status,jdbcType=TINYINT},
       </if>
       <if test="record.createTime != null" >
-        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.modifyTime != null" >
-        MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isDel != null" >
+        is_del = #{record.isDel,jdbcType=TINYINT},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -197,50 +207,55 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update MERCHANT
-    set ID = #{record.id,jdbcType=BIGINT},
-      MER_ID = #{record.merId,jdbcType=VARCHAR},
-      MER_NAME = #{record.merName,jdbcType=VARCHAR},
-      ADDRESS = #{record.address,jdbcType=VARCHAR},
-      STATUS = #{record.status,jdbcType=TINYINT},
-      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
-      MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP}
+    update merchant
+    set id = #{record.id,jdbcType=BIGINT},
+      mer_id = #{record.merId,jdbcType=VARCHAR},
+      mer_name = #{record.merName,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      is_del = #{record.isDel,jdbcType=TINYINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="org.example.mybatis.entity.Merchant" >
-    update MERCHANT
+    update merchant
     <set >
       <if test="merId != null" >
-        MER_ID = #{merId,jdbcType=VARCHAR},
+        mer_id = #{merId,jdbcType=VARCHAR},
       </if>
       <if test="merName != null" >
-        MER_NAME = #{merName,jdbcType=VARCHAR},
+        mer_name = #{merName,jdbcType=VARCHAR},
       </if>
       <if test="address != null" >
-        ADDRESS = #{address,jdbcType=VARCHAR},
+        address = #{address,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
-        STATUS = #{status,jdbcType=TINYINT},
+        status = #{status,jdbcType=TINYINT},
       </if>
       <if test="createTime != null" >
-        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="modifyTime != null" >
-        MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=TINYINT},
       </if>
     </set>
-    where ID = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="org.example.mybatis.entity.Merchant" >
-    update MERCHANT
-    set MER_ID = #{merId,jdbcType=VARCHAR},
-      MER_NAME = #{merName,jdbcType=VARCHAR},
-      ADDRESS = #{address,jdbcType=VARCHAR},
-      STATUS = #{status,jdbcType=TINYINT},
-      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
-    where ID = #{id,jdbcType=BIGINT}
+    update merchant
+    set mer_id = #{merId,jdbcType=VARCHAR},
+      mer_name = #{merName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      is_del = #{isDel,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

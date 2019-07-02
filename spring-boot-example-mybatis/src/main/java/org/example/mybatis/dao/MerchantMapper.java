@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.example.mybatis.entity.Merchant;
 import org.example.mybatis.entity.MerchantExample;
+import org.example.mybatis.entity.MerchantStatusCount;
 
 public interface MerchantMapper {
     int countByExample(MerchantExample example);
@@ -28,4 +29,11 @@ public interface MerchantMapper {
     int updateByPrimaryKeySelective(Merchant record);
 
     int updateByPrimaryKey(Merchant record);
+
+    /**
+     * 查询各状态的商户数量
+     * 
+     * @return
+     */
+    List<MerchantStatusCount> selectStatusCount();
 }
