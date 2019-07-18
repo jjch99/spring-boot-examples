@@ -3,6 +3,7 @@ package org.example.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.example.constants.CacheNames;
 import org.example.domain.User;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.cache.annotation.CacheEvict;
@@ -34,7 +35,7 @@ public class UserServicceImpl implements UserServicce, InitializingBean {
     }
 
     @Override
-    @Cacheable(cacheNames = "local", key = "'user-' + #id")
+    @Cacheable(cacheNames = CacheNames.REDIS, key = "T(org.example.constants.CacheKeys).USER_INFO_PREFIX + #id")
     public User get(Long id) {
         log.info("get user-" + id);
         return userMap.get(id);
@@ -46,7 +47,7 @@ public class UserServicceImpl implements UserServicce, InitializingBean {
     }
 
     @Override
-    @CachePut(cacheNames = "local", key = "'user-' + #user.id")
+    @CachePut(cacheNames = CacheNames.REDIS, key = "T(org.example.constants.CacheKeys).USER_INFO_PREFIX + #user.id")
     public void update(User user) {
         log.info("update user-" + user.getId());
         userMap.put(user.getId(), user);
@@ -54,19 +55,19 @@ public class UserServicceImpl implements UserServicce, InitializingBean {
 
     @Override
     @Caching(evict = {
-            @CacheEvict(value = "redis", key = "#id"),
-            @CacheEvict(value = "local", key = "#id")
+            @CacheEvict(value = CacheNames.REDIS, key = "T(org.example.constants.CacheKeys).USER_INFO_PREFIX + #id"),
+            @CacheEvict(value = CacheNames.LOCAL, key = "T(org.example.constants.CacheKeys).USER_INFO_PREFIX + #id")
     })
-    // @CacheEvict(cacheNames = "local", allEntries = true)
+    // @CacheEvict(cacheNames = CacheNames.LOCAL, allEntries = true)
     public void delete(Long id) {
         log.info("delete user-" + id);
         userMap.remove(id);
     }
 
-    @Cacheable(cacheNames = "redis", key = "#hello")
-    public String hello(String hello) {
-        log.info(hello);
-        return hello;
+    @Cacheable(cacheNames = CacheNames.REDIS, key = "'hello-' + #name")
+    public String hello(String name) {
+        log.info("hello " + name);
+        return "hello " + name;
     }
 
 }

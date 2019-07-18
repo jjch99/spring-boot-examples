@@ -3,6 +3,7 @@ package org.example.config;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.example.constants.CacheNames;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
@@ -41,7 +42,7 @@ public class CacheConfig {
         RedisCacheManager redisCacheManager = new RedisCacheManager(redisTemplate);
         redisCacheManager.setDefaultExpiration(300); // 单位：秒
         List<String> cacheNames = Lists.newArrayList();
-        cacheNames.add("redis");
+        cacheNames.add(CacheNames.REDIS);
         // cacheNames.add("reids-a");
         // cacheNames.add("reids-b");
         redisCacheManager.setCacheNames(cacheNames);
@@ -68,12 +69,12 @@ public class CacheConfig {
     public GuavaCacheManager guavaCacheManager() {
         GuavaCacheManager guavaCacheManager = new GuavaCacheManager();
         CacheBuilder cacheBuilder = CacheBuilder.newBuilder()
-                .maximumSize(1000)
-                .expireAfterWrite(5, TimeUnit.MINUTES);
+                .maximumSize(2000)
+                .expireAfterWrite(10, TimeUnit.SECONDS);
         guavaCacheManager.setCacheBuilder(cacheBuilder);
 
         List<String> cacheNames = Lists.newArrayList();
-        cacheNames.add("local");
+        cacheNames.add(CacheNames.LOCAL);
         // cacheNames.add("local-a");
         guavaCacheManager.setCacheNames(cacheNames);
         return guavaCacheManager;
@@ -96,13 +97,13 @@ public class CacheConfig {
     // @Bean
     public CacheManager simpleCacheManager() {
 
-        // RedisCache redisCache = new RedisCache("redis", null, redisTemplate, 0L);
+        // RedisCache redisCache = new RedisCache(CacheNames.REDIS, null, redisTemplate, 0L);
 
         com.google.common.cache.Cache gCache = CacheBuilder.newBuilder()
-                .maximumSize(1000)
+                .maximumSize(2000)
                 .expireAfterWrite(20, TimeUnit.SECONDS)
                 .build();
-        GuavaCache guavaCache = new GuavaCache("local", gCache);
+        GuavaCache guavaCache = new GuavaCache(CacheNames.LOCAL, gCache);
 
         List<org.springframework.cache.Cache> cacheList = Lists.newArrayList();
         cacheList.add(guavaCache);
