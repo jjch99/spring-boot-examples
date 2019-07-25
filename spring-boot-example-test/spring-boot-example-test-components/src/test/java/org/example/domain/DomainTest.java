@@ -1,5 +1,7 @@
 package org.example.domain;
 
+import java.util.List;
+
 import org.example.utils.TestUtils;
 import org.junit.Test;
 
@@ -12,8 +14,15 @@ public class DomainTest {
 
     @Test
     public void createInstance() {
-        Person person = TestUtils.newInstance(Person.class);
+        Person person = TestUtils.mock(Person.class);
         log.info(JSON.toJSONString(person));
+
+        List<Person> list = TestUtils.newArrayList(Person.class);
+        log.info(JSON.toJSONString(list));
+
+        person.setName("foo");
+        list.add(person);
+        log.info(JSON.toJSONString(list));
     }
 
 }

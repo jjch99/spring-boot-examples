@@ -1,7 +1,15 @@
 package org.example.utils;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 
 import org.mockito.Mockito;
 
@@ -31,8 +39,11 @@ public class TestUtils {
 
         map.put(String.class, "");
         map.put(Date.class, new Date(0L));
+
         map.put(List.class, new ArrayList(0));
         map.put(Map.class, new HashMap<>(0));
+        map.put(Set.class, new HashSet<>(0));
+        map.put(Properties.class, new Properties());
         DEFAULTS = Collections.unmodifiableMap(map);
     }
 
@@ -41,6 +52,35 @@ public class TestUtils {
     }
 
     public static <T> T newInstance(Class<T> clazz) {
+        Object obj;
+        try {
+            obj = clazz.newInstance();
+        } catch (Exception e) {
+            return null;
+        }
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field field : fields) {
+            try {
+                Class fieldType = field.getType();
+                Object fieldValue = getDefaultValue(fieldType);
+                if (fieldValue != null) {
+                    field.setAccessible(true);
+                    field.set(obj, fieldValue);
+                }
+            } catch (Exception e) {
+                // ignore
+            }
+        }
+        return (T) obj;
+    }
+
+    public static <T> List<T> newArrayList(Class<T> clazz) {
+        List<T> list = new ArrayList<>(2);
+        list.add(newInstance(clazz));
+        return list;
+    }
+
+    public static <T> T mock(Class<T> clazz) {
         Object obj;
         try {
             obj = clazz.newInstance();
