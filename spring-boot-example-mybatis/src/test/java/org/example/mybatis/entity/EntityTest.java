@@ -2,7 +2,12 @@ package org.example.mybatis.entity;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -42,33 +47,45 @@ public class EntityTest {
         return DEFAULTS.get(clazz);
     }
 
+    private boolean isIgnoredMethod(Method m) {
+        if (m.getAnnotation(Test.class) != null) {
+            return true;
+        }
+        Method[] methods = Object.class.getMethods();
+        for (Method method : methods) {
+            if (method.getName().equals(m.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Test
-    public void simpleTest() throws Exception {
+    public void entityTest() throws Exception {
         String packageName = getClass().getPackage().getName();
         final ClassLoader loader = Thread.currentThread().getContextClassLoader();
         for (final ClassPath.ClassInfo info : ClassPath.from(loader).getTopLevelClasses()) {
             if (info.getName().startsWith(packageName)) {
+                if (info.getName().endsWith("Test") || info.getName().endsWith("Tests")) {
+                    continue;
+                }
                 final Class<?> clazz = info.load();
                 if (clazz.isInterface() || Modifier.isAbstract(clazz.getModifiers())) {
                     continue;
                 }
-                Object obj1 = clazz.newInstance();
-                Object obj2 = clazz.newInstance();
+                Object obj = clazz.newInstance();
                 Method[] methods = clazz.getMethods();
                 for (Method m : methods) {
-                    if (!Modifier.isPublic(m.getModifiers())) {
+                    if (!Modifier.isPublic(m.getModifiers()) || isIgnoredMethod(m)) {
                         continue;
                     }
-                    if (m.getName().startsWith("get") && m.getParameterCount() == 0) {
-                        m.invoke(obj1);
+                    if (m.getParameterCount() == 0) {
+                        m.invoke(obj);
                     } else if (m.getName().startsWith("set") && m.getParameterCount() == 1) {
                         Class<?>[] paramTypes = m.getParameterTypes();
-                        m.invoke(obj1, getDefaultValue(paramTypes[0]));
-                        m.invoke(obj2, getDefaultValue(paramTypes[0]));
+                        m.invoke(obj, getDefaultValue(paramTypes[0]));
                     }
                 }
-                obj1.equals(obj2);
-                obj1.toString();
             }
         }
     }
@@ -89,7 +106,7 @@ public class EntityTest {
 
                 Method[] methods = criteria.getClass().getMethods();
                 for (Method m : methods) {
-                    if (!Modifier.isPublic(m.getModifiers()) || !m.getName().startsWith("and")) {
+                    if (!Modifier.isPublic(m.getModifiers()) || isIgnoredMethod(m)) {
                         continue;
                     }
                     if (m.getParameterCount() == 0) {
@@ -98,7 +115,7 @@ public class EntityTest {
                         Class<?>[] paramTypes = m.getParameterTypes();
                         Object[] args = new Object[paramTypes.length];
                         try {
-                            m.invoke(criteria, args);
+                            m.invoke(obj, args);
                         } catch (Exception e) {
                             // ignore
                         }
