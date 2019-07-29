@@ -13,6 +13,11 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
 
 <style type="text/css">
+    /* Just a parent container for the videos */
+    .videos {
+        margin: 20px auto;
+        max-width: 700px;
+    }
 
     /* Individual video container */
     .video-wrap {
@@ -77,24 +82,26 @@
     <el-table border :data="tableData" style="width: 100%">
         <el-table-column label="视频" width="320" height="180">
             <template scope="scope">
-                <div class="video-wrap">
-                    <div class="play-btn" @click="dialogVisible=true"></div>
-                    <img src="https://product-online.cdn.bcebos.com/1563442402886808.png" width="320">
+                <div class="videos">
+                    <div class="video-wrap">
+                        <div class="play-btn" @click="dialogVisible=true"></div>
+                        <img src="https://product-online.cdn.bcebos.com/1563442402886808.png" width="320">
+                    </div>
                 </div>
             </template>
         </el-table-column>
 
         <el-table-column label="操作" width="180">
             <template scope="scope">
-                <el-button type="primary" size="mini">编辑</el-button>
+                <el-button type="primary" @click="dialogVisible=true" size="mini">播放</el-button>
             </template>
         </el-table-column>
     </el-table>
 
     <el-dialog :visible.sync="dialogVisible" top="15vh">
         <span>
-            <video src="https://product-online.cdn.bcebos.com/1551870394769844.mp4" controls autoplay muted
-                   width="310" height="180">
+            <video src="https://product-online.cdn.bcebos.com/1563792469083752.mp4" controls autoplay muted
+                   width="100%" height="auto">
             </video>
         </span>
     </el-dialog>
@@ -104,7 +111,6 @@
     new Vue({
         el: '#app',
         data: {
-            tableData: [{videoUrl: "https://product-online.cdn.bcebos.com/1551870394769844.mp4"}],
             dialogVisible: false
         },
         methods: {}
