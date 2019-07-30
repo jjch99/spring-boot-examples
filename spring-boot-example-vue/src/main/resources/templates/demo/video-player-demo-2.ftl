@@ -81,29 +81,34 @@
 <div id="app">
     <el-table border :data="tableData" style="width: 100%">
         <el-table-column label="视频" width="320" height="180">
-            <template scope="scope">
+            <template slot-scope="scope">
                 <div class="videos">
                     <div class="video-wrap">
-                        <div class="play-btn" @click="dialogVisible=true"></div>
-                        <img src="https://product-online.cdn.bcebos.com/1563442402886808.png" width="320">
+                        <div class="play-btn" @click="onVideoPlay(scope.row.videoUrl)"></div>
+                        <img :src="scope.row.poster" width="320">
                     </div>
                 </div>
             </template>
         </el-table-column>
 
         <el-table-column label="操作" width="180">
-            <template scope="scope">
-                <el-button type="primary" @click="dialogVisible=true" size="mini">播放</el-button>
+            <template slot-scope="scope">
+                <el-button type="primary" @click="onVideoPlay(scope.row.videoUrl)" size="mini">播放</el-button>
             </template>
         </el-table-column>
     </el-table>
 
     <el-dialog :visible.sync="dialogVisible" top="15vh">
-        <span>
-            <video src="https://product-online.cdn.bcebos.com/1563792469083752.mp4" controls autoplay muted
-                   width="100%" height="auto">
-            </video>
-        </span>
+        <template>
+            <div>
+                <video ref="myVideoRef"
+                       src="https://product-online.cdn.bcebos.com/1559705537074992.mp4"
+                       controls autoplay muted
+                       width="100%" height="auto">
+                    Your browser does not support the <code>video</code> element.
+                </video>
+            </div>
+        </template>
     </el-dialog>
 </div>
 
@@ -111,9 +116,20 @@
     new Vue({
         el: '#app',
         data: {
-            dialogVisible: false
+            dialogVisible: false,
+            tableData: [{
+                videoUrl: "https://product-online.cdn.bcebos.com/1559705537074992.mp4",
+                poster: "https://product-online.cdn.bcebos.com/1559324788514082.jpg"
+            }]
         },
-        methods: {}
+        methods: {
+            onVideoPlay: function (videoUrl) {
+                console.log(videoUrl);
+                // 有什么办法能动态修改 video.src 么 ...
+                // this.$refs.myVideoRef.src = videoUrl
+                this.dialogVisible = true;
+            }
+        }
     })
 </script>
 </body>
