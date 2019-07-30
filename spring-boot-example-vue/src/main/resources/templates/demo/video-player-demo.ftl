@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>demo</title>
+    <title>video-player-demo</title>
 </head>
 <body>
 
 <#--
  https://github.com/surmon-china/vue-video-player
-
  -->
 
-<script src="https://cdn.jsdelivr.net/npm/video.js@6.13.0/dist/video.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/video.js@6.13.0/dist/video.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/element-ui@2.11.1/lib/index.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue-video-player@5.0.2/dist/vue-video-player.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-video-player@5.0.2/dist/vue-video-player.js"></script>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@6.13.0/dist/video-js.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.11.1/lib/theme-chalk/index.css">
@@ -51,7 +50,7 @@
                 techOrder: ['html5'],
                 fluid: true,
                 muted: true,
-                autoplay: false,
+                autoplay: true,
                 controls: true,
                 playbackRates: [0.7, 1.0, 1.5, 2.0],
                 notSupportedMessage: '此视频暂无法播放，请稍后再试'
