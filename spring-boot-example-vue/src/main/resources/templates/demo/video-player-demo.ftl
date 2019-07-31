@@ -22,7 +22,7 @@
 </script>
 
 <div id="app">
-    <el-button type="text" @click="dialogVisible=true">点击打开 Dialog</el-button>
+    <el-button type="text" @click="dialogVisible=true">点击播放视频</el-button>
 
     <el-dialog :visible.sync="dialogVisible"
                top="15vh">
@@ -41,7 +41,6 @@
         data: {
             dialogVisible: false,
             playerOptions: {
-                language: 'zh-CN',
                 height: '360',
                 sources: [{
                     type: "video/mp4",
