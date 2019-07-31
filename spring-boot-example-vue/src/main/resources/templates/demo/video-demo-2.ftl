@@ -64,7 +64,7 @@
                 </div>
                 <div style="display: inline;">
                     <span v-for="(file,index) in scope.row.images">
-                        <img class="img-thumb" :src="file.url" @click="showFiles(index,scope.row.images)"/>
+                        <img class="img-thumb" :src="file.url" @click="showImages(index,scope.row.images)"/>
                     </span>
                 </div>
             </template>
@@ -128,7 +128,7 @@
                 this.dialogVisible = false;
                 this.videoUrl = '';
             },
-            showFiles: function (index, files) {
+            showImages: function (index, files) {
                 this.filesView.show = true;
                 this.filesView.files = files;
                 this.filesView.index = index;
