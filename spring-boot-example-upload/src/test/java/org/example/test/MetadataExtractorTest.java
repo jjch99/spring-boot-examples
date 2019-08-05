@@ -3,7 +3,7 @@ package org.example.test;
 import java.io.File;
 import java.nio.file.Paths;
 
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.SystemUtils;
 
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.metadata.Directory;
