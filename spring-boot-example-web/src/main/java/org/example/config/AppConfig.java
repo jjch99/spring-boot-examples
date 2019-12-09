@@ -9,6 +9,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * https://www.mkyong.com/spring-boot/spring-boot-configurationproperties-example/
+ */
 @Setter
 @Getter
 @ToString
