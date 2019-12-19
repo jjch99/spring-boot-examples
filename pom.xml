@@ -31,6 +31,7 @@
         <module>spring-boot-example-commandline</module>
         <module>spring-boot-example-shell</module>
         <module>spring-boot-example-logging</module>
+        <module>spring-boot-example-common</module>
     </modules>
 
     <packaging>pom</packaging>
