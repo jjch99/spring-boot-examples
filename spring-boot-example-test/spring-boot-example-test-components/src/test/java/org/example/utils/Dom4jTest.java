@@ -63,7 +63,7 @@ public class Dom4jTest {
                 System.out.println("XML文件通过XSD文件校验失败！");
                 writer.write(errorHandler.getErrors());
             } else {
-                System.out.println("Good! XML文件通过XSD文件校验成功！");
+                System.out.println("XML文件通过XSD文件校验成功！");
             }
         } catch (Exception ex) {
             System.out.println("XML文件: " + xmlFileName + " 通过XSD文件:" + xsdFileName + "检验失败。/n原因： " + ex.getMessage());
