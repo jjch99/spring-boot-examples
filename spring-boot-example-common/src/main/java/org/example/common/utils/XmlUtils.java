@@ -12,7 +12,7 @@ public class XmlUtils {
         xstream.ignoreUnknownElements();
         xstream.autodetectAnnotations(true);
         xstream.aliasSystemAttribute(null, "class");
-        xstream.allowTypesByWildcard(new String[] { "com.baidu.**" });
+        xstream.allowTypesByWildcard(new String[] { "org.example.**" });
         return xstream;
     }
 
