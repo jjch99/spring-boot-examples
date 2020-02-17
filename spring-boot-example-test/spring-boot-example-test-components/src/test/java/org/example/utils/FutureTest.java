@@ -7,6 +7,10 @@ import java.util.concurrent.Future;
 
 import org.junit.Test;
 
+/**
+ * CompletableFuture详解<br>
+ * https://colobu.com/2016/02/29/Java-CompletableFuture/
+ */
 public class FutureTest {
 
     @Test
