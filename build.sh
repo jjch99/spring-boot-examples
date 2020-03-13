@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export LANG=en_US.UTF-8
+
 APP_NAME=spring-boot-examples
 MODULE_API=spring-boot-example-api
 MODULE_MAIN=spring-boot-example-web
@@ -13,6 +15,14 @@ WORK_DIR=$(cd "$(dirname "$0")"; pwd)
 cd $WORK_DIR
 echo "workdir is: $WORK_DIR"
 
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    echo "Linux detected."
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    echo "Mac OS (Darwin) detected."
+else
+    echo "Unknown operating system."
+fi
+
 HOSTNAME=$(hostname)
 if [[ "$HOSTNAME" =~ "-scm-" ]]; then
 
@@ -24,12 +34,14 @@ if [[ "$HOSTNAME" =~ "-scm-" ]]; then
     JDK=$(ls -l $BUILD_KIT_HOME/java|grep jdk*1.8|awk '{print $9}'|sed -n '1p')
     export JAVA_HOME=$BUILD_KIT_PATH/java/$JDK
     export PATH=$JAVA_HOME/bin:$PATH
+    type java >/dev/null 2>&1 || { echo >&2 "java not found, Aborting."; exit 1; }
     java -version
 
     # add mvn to PATH
     MAVEN=$(ls -l $BUILD_KIT_HOME/maven|grep apache-maven-3|awk '{print $9}'|sed -n '1p')
     export MAVEN_HOME=$BUILD_KIT_PATH/maven/$MAVEN
     export PATH=$MAVEN_HOME/bin:$PATH
+    type mvn >/dev/null 2>&1 || { echo >&2 "mvn not found, Aborting."; exit 1; }
     mvn -version
 
     echo "build profile: $PROFILE "
@@ -38,8 +50,9 @@ if [[ "$HOSTNAME" =~ "-scm-" ]]; then
 
 else
 
-   echo "build profile: $PROFILE, skipTests"
-   mvn -U clean package -DskipTests -P$PROFILE -e || { echo "build failed"; exit 1; }
+    type mvn >/dev/null 2>&1 || { echo >&2 "mvn not found, Aborting."; exit 1; }
+    echo "build profile: $PROFILE, skipTests"
+    mvn -U clean package -DskipTests -P$PROFILE -e || { echo "build failed"; exit 1; }
 
 fi
 
