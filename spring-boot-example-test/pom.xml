@@ -13,7 +13,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>spring-boot-example-test-components</module>
         <module>spring-boot-example-testng</module>
     </modules>
 

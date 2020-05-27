@@ -1,4 +1,4 @@
-package org.example.utils;
+package org.example.common.utils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

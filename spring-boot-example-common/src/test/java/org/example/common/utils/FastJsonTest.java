@@ -1,8 +1,8 @@
-package org.example.utils;
+package org.example.common.utils;
 
 import java.util.List;
 
-import org.example.domain.Person;
+import org.example.common.domain.Person;
 import org.junit.Assert;
 import org.junit.Test;
 

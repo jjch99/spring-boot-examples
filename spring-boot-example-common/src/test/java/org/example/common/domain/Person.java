@@ -1,4 +1,4 @@
-package org.example.domain;
+package org.example.common.domain;
 
 import lombok.Data;
 

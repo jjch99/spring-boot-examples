@@ -2,7 +2,7 @@ package org.example.common.utils;
 
 import java.util.UUID;
 
-import org.example.common.message.Album;
+import org.example.common.domain.Album;
 import org.junit.Test;
 
 import lombok.extern.slf4j.Slf4j;

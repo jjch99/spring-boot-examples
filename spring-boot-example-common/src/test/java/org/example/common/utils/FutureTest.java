@@ -1,4 +1,4 @@
-package org.example.utils;
+package org.example.common.utils;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;

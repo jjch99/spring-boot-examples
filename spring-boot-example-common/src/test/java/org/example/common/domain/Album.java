@@ -1,4 +1,4 @@
-package org.example.common.message;
+package org.example.common.domain;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

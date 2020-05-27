@@ -1,4 +1,4 @@
-package org.example.utils;
+package org.example.common.utils;
 
 import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
