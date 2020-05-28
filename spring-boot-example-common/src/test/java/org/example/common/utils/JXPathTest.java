@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import com.google.common.collect.ImmutableMultimap;
 
-public class JXpathTest {
+public class JXPathTest {
 
     @Test
     public void testCase1() throws Exception {
