@@ -25,7 +25,7 @@ public class HttpClientUploadTest extends TestCase {
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
         try {
-            String uri = "httpclient://localhost:8080/batch-upload";
+            String uri = "http://localhost:8080/batch-upload";
             HttpPost httppost = new HttpPost(uri);
 
             Resource resource1 = new ClassPathResource("hello.json");

@@ -10,7 +10,12 @@ import com.alibaba.fastjson.JSONObject;
 
 import junit.framework.TestCase;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.*;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 @Slf4j
 public class OkHttpUploadTest extends TestCase {
@@ -27,7 +32,7 @@ public class OkHttpUploadTest extends TestCase {
 
     public void testUploadFileWithJson() throws Exception {
 
-        String url = "httpclient://localhost:8080/batch-upload-with-json";
+        String url = "http://localhost:8080/batch-upload-with-json";
 
         try {
             JSONObject requestJson = new JSONObject();
