@@ -1,10 +1,14 @@
 package org.example.common.utils;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * 多层Map嵌套时直接根据"/a/b/c"这样的路径操作相应的值,主要用于Json解析为Map时取值
+ */
 public class JPathUtils {
 
     public static Object set(Map root, String path, Object val) {
@@ -76,6 +80,22 @@ public class JPathUtils {
                 return Long.parseLong(s);
             } catch (Exception e) {
             }
+        }
+        return null;
+    }
+
+    public static List getList(Map root, String path) {
+        Object val = get(root, path);
+        if (val instanceof List) {
+            return (List) val;
+        }
+        return null;
+    }
+
+    public static Map getMap(Map root, String path) {
+        Object val = get(root, path);
+        if (val instanceof Map) {
+            return (Map) val;
         }
         return null;
     }

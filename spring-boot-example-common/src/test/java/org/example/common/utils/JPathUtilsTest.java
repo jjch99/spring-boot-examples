@@ -28,6 +28,9 @@ public class JPathUtilsTest {
         Integer age = JPathUtils.getInteger(root, "/user/age");
         System.out.println(age);
 
+        Map addr2 = JPathUtils.getMap(root, "/user/addr");
+        System.out.println(addr2);
+
         String postcode = JPathUtils.getString(root, "/user/addr/postcode");
         System.out.println(postcode);
 
