@@ -22,6 +22,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-to-slf4j</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -43,6 +47,18 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>jcl-over-slf4j</artifactId>
                 <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <!-- java.util.logging 桥接到 slf4j -->
+                <groupId>org.slf4j</groupId>
+                <artifactId>jul-to-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <!-- 如果日志输出不使用log4j2，而依赖库中直接引用了log4j2，可先排除依赖的log4j2，再引入下面这个包，把log4j2桥接到slf4j -->
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-to-slf4j</artifactId>
+                <version>${log4j2.version}</version>
             </dependency>
 
             <!-- 如果使用log4j2，可以使用如下依赖定义，并排除其他所有日志实现的包: log4j、logback -->
@@ -72,6 +88,14 @@
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-core</artifactId>
                 <version>${logback.version}</version>
+            </dependency>
+
+            <!-- 公共库/框架 在单元测试时可以使用 slf4j-simple 输出日志 -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+                <version>${slf4j.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

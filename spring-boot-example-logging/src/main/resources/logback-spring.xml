@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+
+    <!-- Logging
+    https://docs.spring.io/spring-boot/docs/1.5.x/reference/htmlsingle/#boot-features-logging
+    https://docs.spring.io/spring-boot/docs/1.5.x/reference/htmlsingle/#boot-features-logback-extensions
+    -->
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <property name="LOG_DIR" value="${MY_APP_HOME}/log"/>
+    <property name="LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %5p [${MY_APP:-},%X{X-TraceId:-},%X{X-SpanId:-},%X{X-Span-Export:-}] ${PID:- } --- [%t] %-40.40logger{39} : %m%n"/>
+
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/${project.artifactId}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/%d{dd,aux}/${project.artifactId}.log-%d{yyyy-MM-dd-HH}-%i</fileNamePattern>
+            <maxFileSize>100MB</maxFileSize>
+            <maxHistory>100</maxHistory>
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+        <append>true</append>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <logger name="org.apache.commons" level="INFO"/>
+    <logger name="org.apache.catalina" level="INFO"/>
+    <logger name="org.apache.coyote" level="INFO"/>
+    <logger name="org.apache.tomcat" level="INFO"/>
+    <logger name="org.apache.http.wire" level="INFO"/>
+    <logger name="org.apache.ibatis.io" level="INFO"/>
+    <logger name="org.apache.zookeeper" level="INFO"/>
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.hibernate.validator" level="INFO"/>
+    <logger name="sun.rmi" level="INFO"/>
+
+    <springProfile name="!dev">
+        <root level="INFO">
+            <appender-ref ref="RollingFile"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="default,dev">
+        <logger name="org.apache.coyote.http11.Http11InputBuffer" level="DEBUG"/>
+        <root level="DEBUG">
+            <appender-ref ref="Console"/>
+        </root>
+    </springProfile>
+
+</configuration>

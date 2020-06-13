@@ -46,7 +46,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>
-        <spring-boot.version>1.5.14.RELEASE</spring-boot.version>
+        <spring-boot.version>1.5.18.RELEASE</spring-boot.version>
     </properties>
 
     <dependencies>
@@ -69,6 +69,21 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
+                <version>1.7.28</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>log4j-over-slf4j</artifactId>
+                <version>1.7.28</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>1.7.28</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jul-to-slf4j</artifactId>
                 <version>1.7.28</version>
             </dependency>
             <dependency>
@@ -155,7 +170,7 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
-                <version>1.2.68</version>
+                <version>1.2.70</version>
             </dependency>
 
             <dependency>

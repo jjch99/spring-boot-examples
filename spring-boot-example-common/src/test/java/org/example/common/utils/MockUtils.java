@@ -13,7 +13,7 @@ import java.util.Set;
 
 import org.mockito.Mockito;
 
-public class TestUtils {
+public class MockUtils {
 
     private static final Map<Class<?>, Object> DEFAULTS;
 

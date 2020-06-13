@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT" charset="UTF-8">
+            <PatternLayout alwaysWriteExceptions="true"
+                           pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %5p --- [%t] %-40.40c{1.} : %m%n"/>
+        </Console>
+        <RollingFile name="RollingFile" fileName="${sys:user.home}/${project.artifactId}/logs/${project.artifactId}.log"
+                     filePattern="${sys:user.home}/${project.artifactId}/logs/${project.artifactId}.%d{yyyy-MM-dd-}-%i.log.gz">
+            <PatternLayout alwaysWriteExceptions="true" charset="UTF-8">
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5p --- [%t][%traceId] %-40.40c{1.} : %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="100"/>
+        </RollingFile>
+        <async name="ASYNC_INFO">
+            <appenderRef ref="RollingFile"/>
+        </async>
+    </appenders>
+    <loggers>
+        <logger name="org.springframework" level="INFO" additivity="true"/>
+        <Logger name="druid.sql" level="DEBUG" additivity="true"/>
+        <Logger name="com.alibaba.druid.support.http.stat.WebAppStat" level="off"/>
+        <Root level="DEBUG">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+        </Root>
+    </loggers>
+</configuration>
