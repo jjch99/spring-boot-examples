@@ -30,6 +30,9 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <optional>true</optional>
+            <!-- 设置为provided，IDEA里从main方法直接run会失败，IDEA默认不将provided的包加入classpath
+            <scope>provided</scope>
+            -->
         </dependency>
     </dependencies>
 
@@ -107,6 +110,7 @@
                 <version>2.6</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <packagingExcludes>WEB-INF/lib/tomcat-embed-*.jar</packagingExcludes>
                     <!-- class文件及resources里的文件打成jar包 -->
                     <archiveClasses>true</archiveClasses>
                     <webResources>
