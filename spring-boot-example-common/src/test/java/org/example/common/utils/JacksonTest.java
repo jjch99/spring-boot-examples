@@ -10,6 +10,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 
+/**
+ * https://www.cnblogs.com/three-fighter/p/12945142.html
+ */
 public class JacksonTest {
 
     @Test
