@@ -261,6 +261,21 @@
                 <version>3.9.1</version>
             </dependency>
 
+            <dependency>
+                <!-- https://github.com/kstyrc/embedded-redis -->
+                <groupId>com.github.kstyrc</groupId>
+                <artifactId>embedded-redis</artifactId>
+                <version>0.6</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <!-- https://github.com/microwww/jedis-mock -->
+                <groupId>com.github.microwww</groupId>
+                <artifactId>redis-server</artifactId>
+                <version>0.0.2-2.8</version>
+                <scope>test</scope>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
