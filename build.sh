@@ -52,7 +52,7 @@ else
 
     type mvn >/dev/null 2>&1 || { echo >&2 "mvn not found, Aborting."; exit 1; }
     echo "build profile: $PROFILE, skipTests"
-    mvn -U clean package -DskipTests -P$PROFILE -e || { echo "build failed"; exit 1; }
+    mvn -pl '!spring-boot-example-docker' -U clean package -DskipTests -P$PROFILE -e || { echo "build failed"; exit 1; }
 
 fi
 
