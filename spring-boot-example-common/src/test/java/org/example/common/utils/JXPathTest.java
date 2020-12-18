@@ -1,12 +1,11 @@
 package org.example.common.utils;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.google.common.collect.ImmutableMap;
 import org.apache.commons.jxpath.JXPathContext;
 import org.junit.Test;
 
-import com.google.common.collect.ImmutableMultimap;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JXPathTest {
 
@@ -14,7 +13,7 @@ public class JXPathTest {
     public void testCase1() throws Exception {
         Map map = new HashMap();
         map.put("a", 1);
-        map.put("b", ImmutableMultimap.builder().put("b1", "b1").build());
+        map.put("b", ImmutableMap.builder().put("b1", "b1-value").build());
         System.out.println(map);
 
         JXPathContext context = JXPathContext.newContext(map);
