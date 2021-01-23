@@ -3,20 +3,20 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>spring-boot-examples</artifactId>
+        <artifactId>spring-boot-example-config</artifactId>
         <groupId>org.examples</groupId>
         <version>0.1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spring-boot-example-config</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>spring-boot-example-config-multi-env</artifactId>
 
-    <modules>
-        <module>spring-boot-example-config-db</module>
-        <module>spring-boot-example-config-apollo</module>
-        <module>spring-boot-example-config-apollo-log4j2</module>
-        <module>spring-boot-example-config-multi-env</module>
-    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
