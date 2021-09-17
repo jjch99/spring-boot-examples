@@ -14,7 +14,6 @@
 	<packaging>pom</packaging>
 
     <modules>
-        <module>spring-boot-example-dynamic-datasource</module>
         <module>spring-boot-example-multiple-datasource</module>
         <module>spring-boot-example-sharding-jdbc</module>
     </modules>

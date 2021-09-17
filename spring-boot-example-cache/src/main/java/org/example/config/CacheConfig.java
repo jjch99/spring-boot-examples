@@ -1,16 +1,20 @@
 package org.example.config;
 
+import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import org.example.constants.CacheNames;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.caffeine.CaffeineCache;
+import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
-import org.springframework.cache.guava.GuavaCache;
-import org.springframework.cache.guava.GuavaCacheManager;
 import org.springframework.cache.support.CompositeCacheManager;
 import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
@@ -19,10 +23,11 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.cache.RedisCacheWriter;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 
-import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.Lists;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,20 +37,21 @@ import lombok.extern.slf4j.Slf4j;
 public class CacheConfig {
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisConnectionFactory redisConnectionFactory;
 
     @Value("${spring.cache.ehcache.config:classpath:/ehcache.xml}")
     private String ehcacheConfig;
 
     @Bean
     public RedisCacheManager redisCacheManager() {
-        RedisCacheManager redisCacheManager = new RedisCacheManager(redisTemplate);
-        redisCacheManager.setDefaultExpiration(300); // 单位：秒
-        List<String> cacheNames = Lists.newArrayList();
-        cacheNames.add(CacheNames.REDIS);
-        // cacheNames.add("reids-a");
-        // cacheNames.add("reids-b");
-        redisCacheManager.setCacheNames(cacheNames);
+        RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofMinutes(120));
+
+        RedisCacheWriter cacheWriter = RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory);
+        RedisCacheManager redisCacheManager = RedisCacheManager.builder(cacheWriter)
+                .cacheDefaults(redisCacheConfiguration)
+                .build();
+
         return redisCacheManager;
     }
 
@@ -66,18 +72,18 @@ public class CacheConfig {
     }
 
     @Bean
-    public GuavaCacheManager guavaCacheManager() {
-        GuavaCacheManager guavaCacheManager = new GuavaCacheManager();
-        CacheBuilder cacheBuilder = CacheBuilder.newBuilder()
-                .maximumSize(2000)
-                .expireAfterWrite(10, TimeUnit.SECONDS);
-        guavaCacheManager.setCacheBuilder(cacheBuilder);
+    public CaffeineCacheManager caffeineCacheManager() {
+        CaffeineCacheManager cacheManager = new CaffeineCacheManager();
+        cacheManager.setCaffeine(Caffeine.newBuilder()
+                .expireAfterWrite(10, TimeUnit.MINUTES)
+                .initialCapacity(1000)
+                .maximumSize(10000));
 
         List<String> cacheNames = Lists.newArrayList();
         cacheNames.add(CacheNames.LOCAL);
         // cacheNames.add("local-a");
-        guavaCacheManager.setCacheNames(cacheNames);
-        return guavaCacheManager;
+        cacheManager.setCacheNames(cacheNames);
+        return cacheManager;
     }
 
     @Bean
@@ -86,7 +92,7 @@ public class CacheConfig {
         List<CacheManager> cacheManagers = Lists.newArrayList();
         cacheManagers.add(redisCacheManager());
         cacheManagers.add(ehCacheCacheManager());
-        cacheManagers.add(guavaCacheManager());
+        cacheManagers.add(caffeineCacheManager());
 
         CompositeCacheManager cacheManager = new CompositeCacheManager();
         cacheManager.setCacheManagers(cacheManagers);
@@ -97,20 +103,16 @@ public class CacheConfig {
     // @Bean
     public CacheManager simpleCacheManager() {
 
-        // RedisCache redisCache = new RedisCache(CacheNames.REDIS, null, redisTemplate, 0L);
-
-        com.google.common.cache.Cache gCache = CacheBuilder.newBuilder()
-                .maximumSize(2000)
-                .expireAfterWrite(20, TimeUnit.SECONDS)
+        Cache<Object, Object> cache = Caffeine.newBuilder()
+                .expireAfterWrite(10, TimeUnit.MINUTES)
+                .initialCapacity(1000)
+                .maximumSize(10000)
                 .build();
-        GuavaCache guavaCache = new GuavaCache(CacheNames.LOCAL, gCache);
 
-        List<org.springframework.cache.Cache> cacheList = Lists.newArrayList();
-        cacheList.add(guavaCache);
-        // cacheList.add(redisCache);
+        ArrayList<CaffeineCache> caches = Lists.newArrayList();
 
         SimpleCacheManager cacheManager = new SimpleCacheManager();
-        cacheManager.setCaches(cacheList);
+        cacheManager.setCaches(caches);
         return cacheManager;
 
     }

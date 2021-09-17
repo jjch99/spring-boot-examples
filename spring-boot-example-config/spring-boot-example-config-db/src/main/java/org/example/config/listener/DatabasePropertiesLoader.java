@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.boot.env.EnvironmentPostProcessor;
-import org.springframework.boot.logging.LoggingApplicationListener;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.Ordered;
@@ -26,7 +25,7 @@ import org.springframework.util.StringUtils;
 /**
  * 从数据库加载配置参数，需要在{@link Environment}初始化之后，{@link ApplicationContext}初始化之前执行。
  * <p>
- * 通过 {@link EnvironmentPostProcessor} 来加载时，{@link LoggingApplicationListener} 还没有被执行，没有做日志系统的初始化，无法输出日志，这里通过
+ * 通过 {@link EnvironmentPostProcessor} 来加载时，LoggingApplicationListener 还没有被执行，没有做日志系统的初始化，无法输出日志，这里通过
  * {@link ApplicationEnvironmentPreparedEvent} 来加载。
  *
  */
