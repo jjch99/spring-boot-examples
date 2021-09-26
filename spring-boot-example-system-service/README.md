@@ -15,6 +15,6 @@
 ---
 
 Linux环境守护进程工具
-- [daemontools](http://cr.yp.to/daemontools.html)
+- [daemontools](http://cr.yp.to/daemontools.html) - [supervise](http://cr.yp.to/daemontools/supervise.html)
 - [Monit](https://mmonit.com/monit/)
 - [Supervisor](http://supervisord.org/)
