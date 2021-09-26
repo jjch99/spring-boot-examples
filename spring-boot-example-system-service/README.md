@@ -11,3 +11,10 @@
 
 2.winsw: Windows service wrapper
 > https://github.com/kohsuke/winsw
+
+---
+
+Linux环境守护进程工具
+- [daemontools](http://cr.yp.to/daemontools.html)
+- [Monit](https://mmonit.com/monit/)
+- [Supervisor](http://supervisord.org/)
