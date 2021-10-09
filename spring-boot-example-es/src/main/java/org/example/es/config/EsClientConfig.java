@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -17,19 +18,24 @@ public class EsClientConfig {
     @Value("${elasticsearch.cluster-nodes}")
     private String clusterNodes;
 
-    @Bean(destroyMethod = "close")
-    public RestClient restClient() {
+    @Bean
+    public RestClientBuilder restClientBuilder() {
         String[] nodes = StringUtils.split(clusterNodes, ',');
         List<HttpHost> list = new ArrayList<>(nodes.length);
         for (String node : nodes) {
             list.add(HttpHost.create(node));
         }
-        return RestClient.builder(list.toArray(new HttpHost[list.size()])).build();
+        return RestClient.builder(list.toArray(new HttpHost[list.size()]));
     }
 
-    @Bean
+    @Bean(destroyMethod = "close")
+    public RestClient restClient() {
+        return restClientBuilder().build();
+    }
+
+    @Bean(destroyMethod = "close")
     public RestHighLevelClient highLevelClient() {
-        return new RestHighLevelClient(restClient());
+        return new RestHighLevelClient(restClientBuilder());
     }
 
 }

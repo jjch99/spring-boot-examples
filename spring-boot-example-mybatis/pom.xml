@@ -20,7 +20,10 @@
         <pagehelper-spring-boot-starter.version>1.1.1</pagehelper-spring-boot-starter.version>
         <druid-spring-boot-starter.version>1.1.2</druid-spring-boot-starter.version>
         <druid.version>1.1.2</druid.version>
+        <!--
         <mysql.version>5.1.46</mysql.version>
+        -->
+        <mysql.version>8.0.16</mysql.version>
         <flyway.version>4.2.0</flyway.version>
     </properties>
 

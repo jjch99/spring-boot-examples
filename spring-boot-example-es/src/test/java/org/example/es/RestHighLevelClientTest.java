@@ -8,6 +8,7 @@ import org.apache.http.HttpHost;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -23,28 +24,22 @@ import org.junit.Test;
 
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * 参考:<br>
- * https://www.cnblogs.com/leeSmall/p/9218779.html
- */
 @Slf4j
 public class RestHighLevelClientTest {
-
-    private RestClient restClient;
 
     private RestHighLevelClient highLevelClient;
 
     @Before
     public void init() {
-        restClient = RestClient.builder(new HttpHost("eshost", 8992, "httpclient")).build();
-        highLevelClient = new RestHighLevelClient(restClient);
+        RestClientBuilder restClientBuilder = RestClient.builder(new HttpHost("eshost", 8992, "httpclient"));
+        highLevelClient = new RestHighLevelClient(restClientBuilder);
     }
 
     @After
     public void destory() {
         try {
-            if (restClient != null) {
-                restClient.close();
+            if (highLevelClient != null) {
+                highLevelClient.close();
             }
         } catch (IOException e) {
         }
@@ -66,7 +61,7 @@ public class RestHighLevelClientTest {
 
             Arrays.stream(response.getHits().getHits())
                     .forEach(i -> {
-                        log.info(i.getSource().toString());
+                        log.info(i.getSourceAsString());
                     });
         } catch (IOException e) {
             log.error(e.getMessage(), e);
