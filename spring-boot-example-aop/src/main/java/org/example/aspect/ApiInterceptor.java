@@ -1,7 +1,9 @@
 package org.example.aspect;
 
 import java.util.Arrays;
+import java.util.Objects;
 
+import com.google.gson.Gson;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -29,6 +31,9 @@ public class ApiInterceptor {
         Object ret = null;
         try {
             ret = joinPoint.proceed();
+
+            Gson gson = new Gson();
+            log.info("ret: {}", gson.toJson(ret));
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             // 此处如果屏蔽了异常不抛出去，Controller里的@ExceptionHandler就收不到异常了

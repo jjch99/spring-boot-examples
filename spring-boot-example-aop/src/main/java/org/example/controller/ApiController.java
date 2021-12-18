@@ -26,11 +26,18 @@ public class ApiController {
                 log.info(name + ": " + request.getParameter(name));
             }
 
+            log.info("----headers----");
+            Enumeration headers =  request.getHeaderNames();
+            while (headers.hasMoreElements()) {
+                String name = (String) headers.nextElement();
+                log.info(name + ": " + request.getHeader(name));
+            }
+
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
 
-        return "";
+        return "Hello";
     }
 
     @RequestMapping("/api/greeting")
