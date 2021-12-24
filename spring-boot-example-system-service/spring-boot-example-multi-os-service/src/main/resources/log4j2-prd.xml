@@ -23,7 +23,7 @@
         <logger name="org.apache.catalina.core.StandardEngine" additivity="true">
             <AppenderRef ref="Console"/>
         </logger>
-        <logger name="org.example.Application" additivity="true">
+        <logger name="org.example.MyWebApplication" additivity="true">
             <AppenderRef ref="Console"/>
         </logger>
 		<Root level="INFO">

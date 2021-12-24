@@ -3,15 +3,14 @@ package org.example;
 import org.springframework.boot.Banner.Mode;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 
-import com.spring4all.swagger.EnableSwagger2Doc;
-
-@EnableSwagger2Doc
+@ServletComponentScan
 @SpringBootApplication
-public class Application {
+public class MyWebApplication {
 
     public static void main(String[] args) {
-        SpringApplication application = new SpringApplication(Application.class);
+        SpringApplication application = new SpringApplication(MyWebApplication.class);
         application.setBannerMode(Mode.OFF);
         application.run(args);
     }

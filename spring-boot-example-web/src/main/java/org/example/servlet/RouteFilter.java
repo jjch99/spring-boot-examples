@@ -31,7 +31,6 @@ import lombok.extern.slf4j.Slf4j;
  * 更好的做法应该是前后端分别约定好路径前缀，清晰明确
  */
 @Slf4j
-@Order(Ordered.HIGHEST_PRECEDENCE)
 // @WebFilter(filterName = "RouteFilter", urlPatterns = "/*")
 public class RouteFilter implements Filter {
 
