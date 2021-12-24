@@ -32,6 +32,7 @@
         <module>spring-boot-example-war</module>
         <module>spring-boot-example-web</module>
         <module>spring-boot-example-websocket</module>
+        <module>spring-boot-example-swagger</module>
     </modules>
 
     <packaging>pom</packaging>
