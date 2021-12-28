@@ -1,12 +1,16 @@
 package org.example.aspect;
 
-import java.util.Arrays;
-
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.Arrays;
 
 @Component
 @Aspect
@@ -46,7 +50,7 @@ public class ApiInterceptor2 {
     }
 
     /**
-     * 正常返回时执行
+     * 正常返回时执行，可以在这里统一把rest接口的正常返回值输出到log
      */
     @AfterReturning(value = "methodAspect()", returning = "result")
     public void afterReturning(JoinPoint joinPoint, Object result) {

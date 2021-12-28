@@ -1,16 +1,16 @@
 package org.example.controller;
 
-import java.util.Enumeration;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.google.common.collect.ImmutableMap;
+import lombok.extern.slf4j.Slf4j;
+import org.example.utils.JsonUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.fastjson.JSONObject;
-
-import lombok.extern.slf4j.Slf4j;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -31,13 +31,11 @@ public class ApiController {
             log.error(e.getMessage(), e);
         }
 
-        JSONObject resp = new JSONObject();
+        Map resp = new LinkedHashMap();
         resp.put("code", "200");
         resp.put("msg", "成功");
-        JSONObject data = new JSONObject();
-        data.put("status", "OK");
-        resp.put("rawData", data);
-        return resp;
+        resp.put("data", ImmutableMap.of("status", "OK"));
+        return JsonUtils.toJson(resp);
 
     }
 

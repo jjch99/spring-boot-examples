@@ -1,17 +1,21 @@
 package org.example.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.example.common.ServiceException;
 import org.example.dto.BaseResponse;
+import org.example.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -19,13 +23,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
-import java.util.Objects;
 
-//@RestController
-//@ControllerAdvice
-public class CombinedErrorHandler extends ResponseEntityExceptionHandler implements ErrorController {
-
-    private static final String NO_MESSAGE_AVAILABLE = "No message available";
+@Slf4j
+@RestController
+@ControllerAdvice
+public class ErrorHandler extends ResponseEntityExceptionHandler implements ErrorController {
 
     @Autowired
     private ErrorAttributes errorAttributes;
@@ -35,37 +37,26 @@ public class CombinedErrorHandler extends ResponseEntityExceptionHandler impleme
         return "/error";
     }
 
-    private HttpStatus resolve(int statusCode) {
-        for (HttpStatus status : HttpStatus.values()) {
-            if (status.value() == statusCode) {
-                return status;
-            }
-        }
-        return null;
-    }
-
     @RequestMapping(value = "/error")
     @ResponseBody
     public BaseResponse error(HttpServletRequest req, HttpServletResponse resp) {
-        BaseResponse<String> response = new BaseResponse<>();
-        response.setCode("" + resp.getStatus());
 
         WebRequest webRequest = new ServletWebRequest(req);
         Map<String, Object> attr = this.errorAttributes.getErrorAttributes(webRequest, false);
+        log.warn("error: {}", JsonUtils.toJson(attr));
 
-        String message = "";
-        if (attr.containsKey("message")) {
-            message = Objects.toString(attr.get("message"));
+        BaseResponse<String> response = new BaseResponse<>();
+        response.setCode(String.valueOf(resp.getStatus()));
+        if (attr.containsKey("error")) {
+            response.setMessage(String.valueOf(attr.get("error")));
         }
-        if (StringUtils.isEmpty(message) || NO_MESSAGE_AVAILABLE.equalsIgnoreCase(message)) {
-            HttpStatus status = resolve(resp.getStatus());
-            if (status != null) {
-                message = status.getReasonPhrase();
-            } else {
-                message = "";
-            }
+        if (StringUtils.isEmpty(response.getMessage())) {
+            response.setMessage("unknown error");
         }
-        response.setMessage(message);
+
+        String method = getClass().getName() + ".error";
+        log.info("method: {}, return: {}", method, JsonUtils.toJson(response));
+
         return response;
     }
 
@@ -80,7 +71,12 @@ public class CombinedErrorHandler extends ResponseEntityExceptionHandler impleme
         } else {
             response.setCode(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
             response.setMessage(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+            log.warn(req.getRequestURI(), e);
         }
+
+        String method = getClass().getName() + ".exceptionHandler";
+        log.info("method: {}, return: {}", method, JsonUtils.toJson(response));
+
         return response;
     }
 
@@ -92,6 +88,10 @@ public class CombinedErrorHandler extends ResponseEntityExceptionHandler impleme
         BaseResponse<String> response = new BaseResponse();
         response.setCode(String.valueOf(status.value()));
         response.setMessage(StringUtils.defaultString(status.getReasonPhrase()));
+
+        String method = getClass().getName() + ".handleExceptionInternal";
+        log.info("method: {}, return: {}", method, JsonUtils.toJson(response));
+
         return new ResponseEntity(response, headers, HttpStatus.OK);
     }
 
