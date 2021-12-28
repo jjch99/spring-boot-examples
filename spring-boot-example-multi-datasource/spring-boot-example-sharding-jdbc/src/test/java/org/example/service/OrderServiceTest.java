@@ -1,15 +1,13 @@
 package org.example.service;
 
+import com.google.gson.Gson;
+import lombok.extern.slf4j.Slf4j;
 import org.example.entity.Order;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import com.alibaba.fastjson.JSON;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @SpringBootTest
@@ -39,13 +37,13 @@ public class OrderServiceTest {
         // 从拆分库查询，需要传入分库&分表字段
         Order order = orderService.getOrder(userId, id);
         if (order != null) {
-            log.info(JSON.toJSONString(order));
+            log.info(new Gson().toJson(order));
         }
 
         // 从汇总库直接根据ID查询
         Order order1 = orderService.getOrderFromSummary(id);
         if (order1 != null) {
-            log.info(JSON.toJSONString(order1));
+            log.info(new Gson().toJson(order1));
         }
     }
 

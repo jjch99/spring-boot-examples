@@ -1,13 +1,6 @@
 package org.example.httpclient;
 
-import java.io.File;
-import java.util.concurrent.TimeUnit;
-
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-
-import com.alibaba.fastjson.JSONObject;
-
+import com.google.gson.Gson;
 import junit.framework.TestCase;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
@@ -16,6 +9,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+
+import java.io.File;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class OkHttpUploadTest extends TestCase {
@@ -35,13 +35,14 @@ public class OkHttpUploadTest extends TestCase {
         String url = "http://localhost:8080/batch-upload-with-json";
 
         try {
-            JSONObject requestJson = new JSONObject();
-            requestJson.put("id", 12345);
-            requestJson.put("name", "tom");
-            String requestJsonStr = requestJson.toString();
-            log.info(requestJsonStr);
+
+            Map requestData = new LinkedHashMap();
+            requestData.put("id", 12345);
+            requestData.put("name", "tom");
+            String requestJson = new Gson().toJson(requestData);
+            log.info(requestJson);
             MediaType json = MediaType.parse("application/json;charset=UTF-8");
-            RequestBody requestBody = RequestBody.create(json, requestJsonStr);
+            RequestBody requestBody = RequestBody.create(json, requestJson);
 
             Resource fileResource = new ClassPathResource("hello.txt");
             File file = fileResource.getFile();

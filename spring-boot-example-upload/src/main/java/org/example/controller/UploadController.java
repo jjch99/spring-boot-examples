@@ -1,10 +1,7 @@
 package org.example.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
-
+import com.google.gson.Gson;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.SystemUtils;
 import org.example.request.HelloRequest;
 import org.springframework.http.MediaType;
@@ -18,9 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.alibaba.fastjson.JSON;
-
-import lombok.extern.slf4j.Slf4j;
+import java.io.File;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -76,7 +74,7 @@ public class UploadController {
     @ResponseBody
     @PostMapping(value = "/batch-upload-with-json", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String batchUploadWithJson(@RequestPart("hello") HelloRequest request, @RequestParam MultipartFile[] file) {
-        log.info(JSON.toJSONString(request));
+        log.info(new Gson().toJson(request));
 
         for (int i = 0; i < file.length; i++) {
             MultipartFile f = file[i];
@@ -94,8 +92,10 @@ public class UploadController {
 
         log.info(hello);
 
-        HelloRequest helloRequest = JSON.parseObject(hello, HelloRequest.class);
-        log.info(JSON.toJSONString(helloRequest));
+        Gson gson = new Gson();
+
+        HelloRequest helloRequest = gson.fromJson(hello, HelloRequest.class);
+        log.info(gson.toJson(helloRequest));
 
         for (int i = 0; i < file.length; i++) {
             MultipartFile f = file[i];
@@ -110,7 +110,7 @@ public class UploadController {
     @ResponseBody
     @PostMapping(value = "/batch-upload-with-param", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String batchUploadWithParam(@ModelAttribute HelloRequest request, @RequestParam MultipartFile[] file) {
-        log.info(JSON.toJSONString(request));
+        log.info(new Gson().toJson(request));
 
         for (int i = 0; i < file.length; i++) {
             MultipartFile f = file[i];
