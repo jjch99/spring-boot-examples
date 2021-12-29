@@ -3,9 +3,11 @@ package org.example.utils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,8 +41,21 @@ public class JsonUtils {
         }
     }
 
+    public static <T> T parseObject(String text, Type type) {
+        try {
+            JavaType javaType = OBJECT_MAPPER.getTypeFactory().constructType(type);
+            return OBJECT_MAPPER.readValue(text, javaType);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public static <T> T toObject(String text, Class<T> clazz) {
         return parseObject(text, clazz);
+    }
+
+    public static <T> T toObject(String text, Type type) {
+        return parseObject(text, type);
     }
 
     public static Map toMap(String text) {

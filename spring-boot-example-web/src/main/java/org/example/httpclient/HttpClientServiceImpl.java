@@ -1,6 +1,5 @@
 package org.example.httpclient;
 
-import com.alibaba.fastjson.JSON;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
@@ -82,7 +81,7 @@ public class HttpClientServiceImpl implements HttpClientService {
         if (responseBody == null) {
             return null;
         }
-        BaseResponse response = JSON.parseObject(responseBody, type(BaseResponse.class, responseDataClass));
+        BaseResponse response = JsonUtils.toObject(responseBody, type(BaseResponse.class, responseDataClass));
         return response;
     }
 
