@@ -1,10 +1,8 @@
 package org.example.httpclient;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.net.URI;
-import java.nio.charset.StandardCharsets;
-
+import com.alibaba.fastjson.JSON;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
@@ -21,11 +19,12 @@ import org.example.dto.BaseRequest;
 import org.example.dto.BaseResponse;
 import org.example.dto.HelloRequest;
 import org.example.dto.HelloResponse;
+import org.example.utils.JsonUtils;
 
-import com.alibaba.fastjson.JSON;
-
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 封装HTTP接口简单示例
@@ -78,7 +77,7 @@ public class HttpClientServiceImpl implements HttpClientService {
     }
 
     private <T> BaseResponse<T> doPost(URI uri, BaseRequest request, Class<T> responseDataClass) throws Exception {
-        String requestJson = JSON.toJSONString(request);
+        String requestJson = JsonUtils.toJson(request);
         String responseBody = doPost(uri, requestJson);
         if (responseBody == null) {
             return null;
@@ -87,6 +86,7 @@ public class HttpClientServiceImpl implements HttpClientService {
         return response;
     }
 
+    @SuppressWarnings("deprecation")
     private String doPost(URI uri, String request) throws Exception {
         HttpPost httpPost = new HttpPost(uri);
         httpPost.setConfig(requestConfig);

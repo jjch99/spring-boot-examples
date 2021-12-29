@@ -1,21 +1,22 @@
 package org.example.client;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.*;
-
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang3.StringUtils;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONException;
-
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.example.utils.JsonUtils;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.UUID;
 
 @Slf4j
 public class ApiClient {
@@ -58,7 +59,7 @@ public class ApiClient {
         if (data instanceof String) {
             params.put("data", data);
         } else {
-            params.put("data", JSON.toJSONString(data));
+            params.put("data", JsonUtils.toJson(data));
         }
         params.put("sign", sign(params, secretKey));
         String response = null;
@@ -70,9 +71,9 @@ public class ApiClient {
         }
         T respObj = null;
         try {
-            respObj = JSON.parseObject(response, clazz);
+            respObj = JsonUtils.parseObject(response, clazz);
             respObj.setRawData(response);
-        } catch (JSONException e) {
+        } catch (Exception e) {
             log.error("response content json parse error: {}", response, e);
             throw new ApiException("500", "response content json parse error", e);
         }

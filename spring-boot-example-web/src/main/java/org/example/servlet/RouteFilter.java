@@ -1,9 +1,13 @@
 package org.example.servlet;
 
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.HttpStatus;
+import org.springframework.util.MimeTypeUtils;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -11,20 +15,11 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.http.HttpStatus;
-import org.springframework.util.MimeTypeUtils;
-
-import lombok.extern.slf4j.Slf4j;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * 前后端混部，且前端使用 HistoryRouter(另一种常见的是HashRouter)时，可能需要把前端路由兜底到指定页面(eg:index.html)
@@ -62,6 +57,7 @@ public class RouteFilter implements Filter {
         }
     }
 
+    @SuppressWarnings("deprecation")
     private void responseIndexHtml(HttpServletResponse response) {
         try {
             ClassPathResource resource = new ClassPathResource("static/index.html");
