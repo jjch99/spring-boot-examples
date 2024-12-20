@@ -43,15 +43,15 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
+        <java.version>21</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>
-        <spring-boot.version>2.1.18.RELEASE</spring-boot.version>
+        <spring-boot.version>3.3.6</spring-boot.version>
         <!-- 覆盖 spring-boot-dependencies 里面的版本号 -->
-        <slf4j.version>1.7.32</slf4j.version>
-        <log4j2.version>2.17.0</log4j2.version>
-        <logback.version>1.2.9</logback.version>
+        <slf4j.version>2.0.16</slf4j.version>
+        <log4j2.version>2.24.3</log4j2.version>
+        <logback.version>1.5.12</logback.version>
     </properties>
 
     <dependencies>
@@ -121,7 +121,7 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.5</version>
+                <version>3.17.0</version>
             </dependency>
             <dependency>
                 <groupId>commons-lang</groupId>
@@ -139,6 +139,11 @@
                 <version>1.9.4</version>
             </dependency>
             <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.17.1</version>
+            </dependency>
+            <dependency>
                 <groupId>commons-jxpath</groupId>
                 <artifactId>commons-jxpath</artifactId>
                 <version>1.3</version>
@@ -151,9 +156,33 @@
             </dependency>
 
             <dependency>
+                <groupId>jakarta.cache</groupId>
+                <artifactId>jakarta.cache-api</artifactId>
+                <version>2.0.0</version>
+            </dependency>
+            <!--
+            <dependency>
+                <groupId>net.sf.ehcache</groupId>
+                <artifactId>ehcache</artifactId>
+                <version>2.10.9.2</version>
+            </dependency>
+            -->
+            <dependency>
+                <groupId>org.ehcache</groupId>
+                <artifactId>ehcache</artifactId>
+                <version>3.10.8</version>
+            </dependency>
+
+            <dependency>
                 <groupId>com.github.ben-manes.caffeine</groupId>
                 <artifactId>caffeine</artifactId>
                 <version>2.8.5</version>
+            </dependency>
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.49</version>
             </dependency>
 
             <dependency>
@@ -187,7 +216,7 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
-                <version>1.2.79</version>
+                <version>2.0.53</version>
             </dependency>
 
             <dependency>
@@ -196,6 +225,11 @@
                 <version>2.4.0</version>
             </dependency>
 
+            <dependency>
+                <groupId>dom4j</groupId>
+                <artifactId>dom4j</artifactId>
+                <version>1.6.1</version>
+            </dependency>
             <dependency>
                 <groupId>org.dom4j</groupId>
                 <artifactId>dom4j</artifactId>
@@ -208,9 +242,9 @@
             </dependency>
 
             <dependency>
-                <groupId>javax.validation</groupId>
-                <artifactId>validation-api</artifactId>
-                <version>2.0.1.Final</version>
+                <groupId>jakarta.validation</groupId>
+                <artifactId>jakarta.validation-api</artifactId>
+                <version>3.1.0</version>
             </dependency>
 
             <dependency>
@@ -225,11 +259,17 @@
                 <version>4.13.1</version>
             </dependency>
             <dependency>
+                <groupId>org.junit.vintage</groupId>
+                <artifactId>junit-vintage-engine</artifactId>
+                <version>5.10.0</version>
+            </dependency>
+            <dependency>
                 <groupId>org.mockito</groupId>
-                <artifactId>mockito-all</artifactId>
-                <version>1.10.19</version>
+                <artifactId>mockito-core</artifactId>
+                <version>5.14.2</version>
             </dependency>
 
+            <!--
             <dependency>
                 <groupId>io.swagger</groupId>
                 <artifactId>swagger-annotations</artifactId>
@@ -245,23 +285,37 @@
                 <artifactId>springfox-swagger-ui</artifactId>
                 <version>2.9.2</version>
             </dependency>
+            -->
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-annotations-jakarta</artifactId>
+                <version>2.2.25</version>
+            </dependency>
+            <!-- https://github.com/springdoc/springdoc-openapi -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
+                <version>2.7.0</version>
+            </dependency>
 
+            <!--
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
                 <version>1.1.10</version>
             </dependency>
+            -->
             <dependency>
                 <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>1.1.10</version>
+                <artifactId>druid-spring-boot-3-starter</artifactId>
+                <version>1.2.24</version>
             </dependency>
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>1.3.2</version>
             </dependency>
-
+            
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
@@ -271,6 +325,11 @@
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpmime</artifactId>
                 <version>4.5.5</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents.client5</groupId>
+                <artifactId>httpclient5</artifactId>
+                <version>5.2</version>
             </dependency>
             <dependency>
                 <groupId>com.squareup.okhttp3</groupId>
@@ -298,6 +357,16 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <compilerArgs>
+                        <arg>-Xlint:-rawtypes</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>

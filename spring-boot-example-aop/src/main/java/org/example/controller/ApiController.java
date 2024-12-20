@@ -2,19 +2,19 @@ package org.example.controller;
 
 import java.util.Enumeration;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
 public class ApiController {
 
-    @ApiOperation("API demo")
+    @Operation(summary = "Hello", description = "")
     @RequestMapping("/api/hello")
     public Object hello(HttpServletRequest request) {
 
@@ -27,7 +27,7 @@ public class ApiController {
             }
 
             log.info("----headers----");
-            Enumeration headers =  request.getHeaderNames();
+            Enumeration headers = request.getHeaderNames();
             while (headers.hasMoreElements()) {
                 String name = (String) headers.nextElement();
                 log.info(name + ": " + request.getHeader(name));

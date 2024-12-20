@@ -1,11 +1,11 @@
 # spring-boot-examples
 Spring Boot Examples
 
-[Spring Boot Reference Guide](https://docs.spring.io/spring-boot/docs/2.1.x/reference/htmlsingle/)
+[Spring Boot Reference Guide](https://docs.spring.io/spring-boot/3.3/documentation.html)
 
 ## Other samples/examples
 
-Official spring-boot-samples
+Official spring-boot-samples[2.1.x]
 > https://github.com/spring-projects/spring-boot/tree/2.1.x/spring-boot-samples
 
 ityouknow spring-boot-examples

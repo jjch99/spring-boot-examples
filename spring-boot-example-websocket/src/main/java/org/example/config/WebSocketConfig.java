@@ -1,6 +1,6 @@
 package org.example.config;
 
-import javax.websocket.server.ServerEndpointConfig.Configurator;
+import jakarta.websocket.server.ServerEndpointConfig.Configurator;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

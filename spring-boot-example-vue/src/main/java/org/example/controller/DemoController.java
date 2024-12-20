@@ -13,15 +13,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Api
+// import io.swagger.annotations.Api;
+// import io.swagger.annotations.ApiOperation;
+
+// @Api
+@Tag(name = "", description = "")
 @RestController
 @RequestMapping("/api/demo")
 public class DemoController {
 
-    @ApiOperation("charts-demo-data")
+    // @ApiOperation("charts-demo-data")
+    @Operation(summary = "Hello API", description = "Hello API DOC")
     @GetMapping("/v-charts-demo")
     public BaseResponse<ChartData> chartsDemo() {
 

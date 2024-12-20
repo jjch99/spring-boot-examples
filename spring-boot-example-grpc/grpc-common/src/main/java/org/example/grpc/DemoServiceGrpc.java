@@ -1,75 +1,60 @@
 package org.example.grpc;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
-import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncUnaryCall;
-import static io.grpc.stub.ClientCalls.blockingServerStreamingCall;
-import static io.grpc.stub.ClientCalls.blockingUnaryCall;
-import static io.grpc.stub.ClientCalls.futureUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
 
 /**
  */
-@javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.12.0)",
-    comments = "Source: Demo.proto")
+@io.grpc.stub.annotations.GrpcGenerated
 public final class DemoServiceGrpc {
 
   private DemoServiceGrpc() {}
 
-  public static final String SERVICE_NAME = "services.DemoService";
+  public static final java.lang.String SERVICE_NAME = "services.DemoService";
 
   // Static method descriptors that strictly reflect the proto.
-  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
-  @java.lang.Deprecated // Use {@link #getDemoMethod()} instead. 
-  public static final io.grpc.MethodDescriptor<org.example.grpc.DemoMessage,
-      org.example.grpc.DemoMessage> METHOD_DEMO = getDemoMethodHelper();
-
   private static volatile io.grpc.MethodDescriptor<org.example.grpc.DemoMessage,
       org.example.grpc.DemoMessage> getDemoMethod;
 
-  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "demo",
+      requestType = org.example.grpc.DemoMessage.class,
+      responseType = org.example.grpc.DemoMessage.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<org.example.grpc.DemoMessage,
       org.example.grpc.DemoMessage> getDemoMethod() {
-    return getDemoMethodHelper();
-  }
-
-  private static io.grpc.MethodDescriptor<org.example.grpc.DemoMessage,
-      org.example.grpc.DemoMessage> getDemoMethodHelper() {
     io.grpc.MethodDescriptor<org.example.grpc.DemoMessage, org.example.grpc.DemoMessage> getDemoMethod;
     if ((getDemoMethod = DemoServiceGrpc.getDemoMethod) == null) {
       synchronized (DemoServiceGrpc.class) {
         if ((getDemoMethod = DemoServiceGrpc.getDemoMethod) == null) {
-          DemoServiceGrpc.getDemoMethod = getDemoMethod = 
+          DemoServiceGrpc.getDemoMethod = getDemoMethod =
               io.grpc.MethodDescriptor.<org.example.grpc.DemoMessage, org.example.grpc.DemoMessage>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(
-                  "services.DemoService", "demo"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "demo"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.example.grpc.DemoMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.example.grpc.DemoMessage.getDefaultInstance()))
-                  .setSchemaDescriptor(new DemoServiceMethodDescriptorSupplier("demo"))
-                  .build();
-          }
+              .setSchemaDescriptor(new DemoServiceMethodDescriptorSupplier("demo"))
+              .build();
         }
-     }
-     return getDemoMethod;
+      }
+    }
+    return getDemoMethod;
   }
 
   /**
    * Creates a new async stub that supports all call types for the service
    */
   public static DemoServiceStub newStub(io.grpc.Channel channel) {
-    return new DemoServiceStub(channel);
+    io.grpc.stub.AbstractStub.StubFactory<DemoServiceStub> factory =
+      new io.grpc.stub.AbstractStub.StubFactory<DemoServiceStub>() {
+        @java.lang.Override
+        public DemoServiceStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+          return new DemoServiceStub(channel, callOptions);
+        }
+      };
+    return DemoServiceStub.newStub(factory, channel);
   }
 
   /**
@@ -77,7 +62,14 @@ public final class DemoServiceGrpc {
    */
   public static DemoServiceBlockingStub newBlockingStub(
       io.grpc.Channel channel) {
-    return new DemoServiceBlockingStub(channel);
+    io.grpc.stub.AbstractStub.StubFactory<DemoServiceBlockingStub> factory =
+      new io.grpc.stub.AbstractStub.StubFactory<DemoServiceBlockingStub>() {
+        @java.lang.Override
+        public DemoServiceBlockingStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+          return new DemoServiceBlockingStub(channel, callOptions);
+        }
+      };
+    return DemoServiceBlockingStub.newStub(factory, channel);
   }
 
   /**
@@ -85,48 +77,52 @@ public final class DemoServiceGrpc {
    */
   public static DemoServiceFutureStub newFutureStub(
       io.grpc.Channel channel) {
-    return new DemoServiceFutureStub(channel);
+    io.grpc.stub.AbstractStub.StubFactory<DemoServiceFutureStub> factory =
+      new io.grpc.stub.AbstractStub.StubFactory<DemoServiceFutureStub>() {
+        @java.lang.Override
+        public DemoServiceFutureStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+          return new DemoServiceFutureStub(channel, callOptions);
+        }
+      };
+    return DemoServiceFutureStub.newStub(factory, channel);
   }
 
   /**
    */
-  public static abstract class DemoServiceImplBase implements io.grpc.BindableService {
+  public interface AsyncService {
 
     /**
      */
-    public void demo(org.example.grpc.DemoMessage request,
+    default void demo(org.example.grpc.DemoMessage request,
         io.grpc.stub.StreamObserver<org.example.grpc.DemoMessage> responseObserver) {
-      asyncUnimplementedUnaryCall(getDemoMethodHelper(), responseObserver);
-    }
-
-    @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
-      return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
-          .addMethod(
-            getDemoMethodHelper(),
-            asyncUnaryCall(
-              new MethodHandlers<
-                org.example.grpc.DemoMessage,
-                org.example.grpc.DemoMessage>(
-                  this, METHODID_DEMO)))
-          .build();
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDemoMethod(), responseObserver);
     }
   }
 
   /**
+   * Base class for the server implementation of the service DemoService.
    */
-  public static final class DemoServiceStub extends io.grpc.stub.AbstractStub<DemoServiceStub> {
-    private DemoServiceStub(io.grpc.Channel channel) {
-      super(channel);
-    }
+  public static abstract class DemoServiceImplBase
+      implements io.grpc.BindableService, AsyncService {
 
-    private DemoServiceStub(io.grpc.Channel channel,
-        io.grpc.CallOptions callOptions) {
+    @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
+      return DemoServiceGrpc.bindService(this);
+    }
+  }
+
+  /**
+   * A stub to allow clients to do asynchronous rpc calls to service DemoService.
+   */
+  public static final class DemoServiceStub
+      extends io.grpc.stub.AbstractAsyncStub<DemoServiceStub> {
+    private DemoServiceStub(
+        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
     }
 
     @java.lang.Override
-    protected DemoServiceStub build(io.grpc.Channel channel,
-        io.grpc.CallOptions callOptions) {
+    protected DemoServiceStub build(
+        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       return new DemoServiceStub(channel, callOptions);
     }
 
@@ -134,52 +130,48 @@ public final class DemoServiceGrpc {
      */
     public void demo(org.example.grpc.DemoMessage request,
         io.grpc.stub.StreamObserver<org.example.grpc.DemoMessage> responseObserver) {
-      asyncUnaryCall(
-          getChannel().newCall(getDemoMethodHelper(), getCallOptions()), request, responseObserver);
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getDemoMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
   /**
+   * A stub to allow clients to do synchronous rpc calls to service DemoService.
    */
-  public static final class DemoServiceBlockingStub extends io.grpc.stub.AbstractStub<DemoServiceBlockingStub> {
-    private DemoServiceBlockingStub(io.grpc.Channel channel) {
-      super(channel);
-    }
-
-    private DemoServiceBlockingStub(io.grpc.Channel channel,
-        io.grpc.CallOptions callOptions) {
+  public static final class DemoServiceBlockingStub
+      extends io.grpc.stub.AbstractBlockingStub<DemoServiceBlockingStub> {
+    private DemoServiceBlockingStub(
+        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
     }
 
     @java.lang.Override
-    protected DemoServiceBlockingStub build(io.grpc.Channel channel,
-        io.grpc.CallOptions callOptions) {
+    protected DemoServiceBlockingStub build(
+        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       return new DemoServiceBlockingStub(channel, callOptions);
     }
 
     /**
      */
     public org.example.grpc.DemoMessage demo(org.example.grpc.DemoMessage request) {
-      return blockingUnaryCall(
-          getChannel(), getDemoMethodHelper(), getCallOptions(), request);
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getDemoMethod(), getCallOptions(), request);
     }
   }
 
   /**
+   * A stub to allow clients to do ListenableFuture-style rpc calls to service DemoService.
    */
-  public static final class DemoServiceFutureStub extends io.grpc.stub.AbstractStub<DemoServiceFutureStub> {
-    private DemoServiceFutureStub(io.grpc.Channel channel) {
-      super(channel);
-    }
-
-    private DemoServiceFutureStub(io.grpc.Channel channel,
-        io.grpc.CallOptions callOptions) {
+  public static final class DemoServiceFutureStub
+      extends io.grpc.stub.AbstractFutureStub<DemoServiceFutureStub> {
+    private DemoServiceFutureStub(
+        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
     }
 
     @java.lang.Override
-    protected DemoServiceFutureStub build(io.grpc.Channel channel,
-        io.grpc.CallOptions callOptions) {
+    protected DemoServiceFutureStub build(
+        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       return new DemoServiceFutureStub(channel, callOptions);
     }
 
@@ -187,8 +179,8 @@ public final class DemoServiceGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<org.example.grpc.DemoMessage> demo(
         org.example.grpc.DemoMessage request) {
-      return futureUnaryCall(
-          getChannel().newCall(getDemoMethodHelper(), getCallOptions()), request);
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getDemoMethod(), getCallOptions()), request);
     }
   }
 
@@ -199,10 +191,10 @@ public final class DemoServiceGrpc {
       io.grpc.stub.ServerCalls.ServerStreamingMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.ClientStreamingMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.BidiStreamingMethod<Req, Resp> {
-    private final DemoServiceImplBase serviceImpl;
+    private final AsyncService serviceImpl;
     private final int methodId;
 
-    MethodHandlers(DemoServiceImplBase serviceImpl, int methodId) {
+    MethodHandlers(AsyncService serviceImpl, int methodId) {
       this.serviceImpl = serviceImpl;
       this.methodId = methodId;
     }
@@ -231,6 +223,18 @@ public final class DemoServiceGrpc {
     }
   }
 
+  public static final io.grpc.ServerServiceDefinition bindService(AsyncService service) {
+    return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
+        .addMethod(
+          getDemoMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.example.grpc.DemoMessage,
+              org.example.grpc.DemoMessage>(
+                service, METHODID_DEMO)))
+        .build();
+  }
+
   private static abstract class DemoServiceBaseDescriptorSupplier
       implements io.grpc.protobuf.ProtoFileDescriptorSupplier, io.grpc.protobuf.ProtoServiceDescriptorSupplier {
     DemoServiceBaseDescriptorSupplier() {}
@@ -254,9 +258,9 @@ public final class DemoServiceGrpc {
   private static final class DemoServiceMethodDescriptorSupplier
       extends DemoServiceBaseDescriptorSupplier
       implements io.grpc.protobuf.ProtoMethodDescriptorSupplier {
-    private final String methodName;
+    private final java.lang.String methodName;
 
-    DemoServiceMethodDescriptorSupplier(String methodName) {
+    DemoServiceMethodDescriptorSupplier(java.lang.String methodName) {
       this.methodName = methodName;
     }
 
@@ -276,7 +280,7 @@ public final class DemoServiceGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new DemoServiceFileDescriptorSupplier())
-              .addMethod(getDemoMethodHelper())
+              .addMethod(getDemoMethod())
               .build();
         }
       }

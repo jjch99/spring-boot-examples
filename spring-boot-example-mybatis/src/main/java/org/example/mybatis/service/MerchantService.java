@@ -2,7 +2,7 @@ package org.example.mybatis.service;
 
 import java.util.List;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.example.mybatis.dao.MerchantMapper;
 import org.example.mybatis.entity.Merchant;

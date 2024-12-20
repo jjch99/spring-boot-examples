@@ -23,19 +23,25 @@
             <plugin>
                 <groupId>org.xolstice.maven.plugins</groupId>
                 <artifactId>protobuf-maven-plugin</artifactId>
-                <version>0.5.1</version>
+                <version>0.6.1</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <protocArtifact>com.google.protobuf:protoc:3.5.1-1:exe:${os.detected.classifier}
+                    <protocArtifact>com.google.protobuf:protoc:3.25.3:exe:${os.detected.classifier}
                     </protocArtifact>
                     <pluginId>grpc-java</pluginId>
-                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.12.0:exe:${os.detected.classifier}
+                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.64.0:exe:${os.detected.classifier}
                     </pluginArtifact>
                     <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
                     <clearOutputDirectory>false</clearOutputDirectory>
                 </configuration>
                 <executions>
                     <execution>
+                        <!-- https://github.com/grpc/grpc-java/issues/9179 -->
+                        <configuration>
+                            <pluginParameter>
+                                @generated=omit
+                            </pluginParameter>
+                        </configuration>
                         <goals>
                             <goal>compile</goal>
                             <goal>compile-custom</goal>
@@ -43,6 +49,30 @@
                     </execution>
                 </executions>
             </plugin>
+            <!--
+            <plugin>
+                <groupId>io.github.floverfelt</groupId>
+                <artifactId>find-and-replace-maven-plugin</artifactId>
+                <version>1.2.0</version>
+                <executions>
+                    <execution>
+                        <id>exec</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>find-and-replace</goal>
+                        </goals>
+                        <configuration>
+                            <replacementType>file-contents</replacementType>
+                            <baseDir>${project.basedir}/src/main/java</baseDir>
+                            <findRegex>javax</findRegex>
+                            <replaceValue>jakarta</replaceValue>
+                            <recursive>true</recursive>
+                            <fileMask>.java</fileMask>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            -->
         </plugins>
     </build>
 

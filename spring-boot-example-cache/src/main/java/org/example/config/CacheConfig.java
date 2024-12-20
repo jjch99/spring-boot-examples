@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import javax.cache.Caching;
+
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.example.constants.CacheNames;
@@ -13,16 +15,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
-import org.springframework.cache.ehcache.EhCacheCacheManager;
-import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
+import org.springframework.cache.jcache.JCacheCacheManager;
 import org.springframework.cache.support.CompositeCacheManager;
 import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
@@ -56,19 +55,13 @@ public class CacheConfig {
     }
 
     @Bean
-    public EhCacheManagerFactoryBean ehCacheManagerFactoryBean() {
-        EhCacheManagerFactoryBean factoryBean = new EhCacheManagerFactoryBean();
-        ResourceLoader resourceLoader = new DefaultResourceLoader();
-        Resource resource = resourceLoader.getResource(ehcacheConfig);
-        factoryBean.setConfigLocation(resource);
-        return factoryBean;
-    }
-
-    @Bean
-    public EhCacheCacheManager ehCacheCacheManager() {
-        net.sf.ehcache.CacheManager cacheManager = ehCacheManagerFactoryBean().getObject();
-        EhCacheCacheManager ehCacheCacheManager = new EhCacheCacheManager(cacheManager);
-        return ehCacheCacheManager;
+    public CacheManager ehCacheCacheManager() {
+        try {
+            javax.cache.CacheManager cacheManager = Caching.getCachingProvider().getCacheManager(new DefaultResourceLoader().getResource(ehcacheConfig).getURI(), null, null);
+            return new JCacheCacheManager(cacheManager);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Bean

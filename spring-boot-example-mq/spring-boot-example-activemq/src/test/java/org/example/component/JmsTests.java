@@ -1,6 +1,6 @@
 package org.example.component;
 
-import javax.jms.Destination;
+import jakarta.jms.Destination;
 
 import org.apache.activemq.command.ActiveMQQueue;
 import org.example.common.Queues;

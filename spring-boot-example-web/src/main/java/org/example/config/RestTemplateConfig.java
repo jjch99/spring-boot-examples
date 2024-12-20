@@ -1,6 +1,7 @@
 package org.example.config;
 
-import org.apache.http.client.HttpClient;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.http.client.config.RequestConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -14,9 +15,6 @@ import org.springframework.web.client.RestTemplate;
 public class RestTemplateConfig {
 
     @Autowired
-    private HttpClient httpClient;
-
-    @Autowired
     private RequestConfig requestConfig;
 
     @Bean
@@ -26,10 +24,10 @@ public class RestTemplateConfig {
 
     @Bean
     public ClientHttpRequestFactory httpComponentsClientHttpRequestFactory() {
-        HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(httpClient);
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(httpclient);
         factory.setConnectionRequestTimeout(requestConfig.getConnectionRequestTimeout());
         factory.setConnectTimeout(requestConfig.getConnectTimeout());
-        factory.setReadTimeout(requestConfig.getSocketTimeout());
         return factory;
     }
 

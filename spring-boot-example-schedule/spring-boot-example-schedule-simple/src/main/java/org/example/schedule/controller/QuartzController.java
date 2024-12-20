@@ -1,6 +1,6 @@
 package org.example.schedule.controller;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.example.schedule.task.QuartzJob;
 import org.quartz.CronScheduleBuilder;
@@ -50,7 +50,7 @@ public class QuartzController {
     @ResponseBody
     @RequestMapping("/quartz/addJob")
     public String addJob(String name, @RequestParam(required = false) String cron) throws Exception {
-        if (StringUtils.isEmpty(cron)) {
+        if (!StringUtils.hasText(cron)) {
             cron = "0/5 * * * * ?";
         }
         JobDetail jobDetail = JobBuilder.newJob(QuartzJob.class).withIdentity("job" + name, "group1").build();

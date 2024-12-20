@@ -1,8 +1,8 @@
 package org.example.component;
 
-import javax.jms.Destination;
-import javax.jms.JMSException;
-import javax.jms.Message;
+import jakarta.jms.Destination;
+import jakarta.jms.JMSException;
+import jakarta.jms.Message;
 
 import org.apache.activemq.ScheduledMessage;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,10 +1,7 @@
 package org.example.aspect;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -14,14 +11,13 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.StringUtils;
 
 @Aspect
 @Component
 @Slf4j
 public class ApiInterceptor {
 
-    @Pointcut("@annotation(io.swagger.annotations.ApiOperation)")
+    @Pointcut("@annotation(io.swagger.v3.oas.annotations.Operation)")
     public void apiMethodAspect() {
 
     }

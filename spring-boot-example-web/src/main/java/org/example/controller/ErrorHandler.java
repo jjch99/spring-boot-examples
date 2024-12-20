@@ -6,6 +6,7 @@ import org.example.common.ServiceException;
 import org.example.dto.BaseResponse;
 import org.example.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpHeaders;
@@ -20,8 +21,9 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.util.Map;
 
 @Slf4j
@@ -32,7 +34,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler implements Erro
     @Autowired
     private ErrorAttributes errorAttributes;
 
-    @Override
+    // @Override
     public String getErrorPath() {
         return "/error";
     }
@@ -42,7 +44,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler implements Erro
     public BaseResponse error(HttpServletRequest req, HttpServletResponse resp) {
 
         WebRequest webRequest = new ServletWebRequest(req);
-        Map<String, Object> attr = this.errorAttributes.getErrorAttributes(webRequest, false);
+        Map<String, Object> attr = this.errorAttributes.getErrorAttributes(webRequest, ErrorAttributeOptions.defaults());
         log.warn("error: {}", JsonUtils.toJson(attr));
 
         BaseResponse<String> response = new BaseResponse<>();
@@ -80,7 +82,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler implements Erro
         return response;
     }
 
-    @Override
+    // @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception e, Object body, HttpHeaders headers,
                                                              HttpStatus status, WebRequest request) {
         super.handleExceptionInternal(e, body, headers, status, request);

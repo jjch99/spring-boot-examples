@@ -1,35 +1,34 @@
 package org.example.dubbo.config;
 
-import javax.servlet.Filter;
+import jakarta.servlet.Filter;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import brave.Tracing;
 import brave.http.HttpTracing;
-import brave.servlet.TracingFilter;
+import brave.jakarta.servlet.TracingFilter;
 import brave.spring.webmvc.SpanCustomizingAsyncHandlerInterceptor;
 
 @Configuration
 @Import(SpanCustomizingAsyncHandlerInterceptor.class)
-public class WebMvcConfig extends WebMvcConfigurerAdapter {
+public class WebMvcConfig implements WebMvcConfigurer {
 
-    @Autowired
-    private HttpTracing httpTracing;
-
-    @Autowired
-    private SpanCustomizingAsyncHandlerInterceptor serverInterceptor;
+    // @Autowired
+    // private SpanCustomizingAsyncHandlerInterceptor serverInterceptor;
 
     /**
      * 追踪过滤器
      */
     @Bean
     public Filter tracingFilter() {
-        return TracingFilter.create(httpTracing);
+        Tracing tracing = Tracing.newBuilder()
+                .localServiceName("my-service")
+                .build();
+        return TracingFilter.create(HttpTracing.create(tracing));
     }
 
     /**
@@ -48,9 +47,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     /**
      * adds tracing to the application-defined web controller
      */
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(serverInterceptor);
-    }
+    // @Override
+    // public void addInterceptors(InterceptorRegistry registry) {
+    //     registry.addInterceptor(serverInterceptor);
+    // }
 
 }

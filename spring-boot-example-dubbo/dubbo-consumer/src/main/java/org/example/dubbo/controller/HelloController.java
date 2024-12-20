@@ -1,10 +1,9 @@
 package org.example.dubbo.controller;
 
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.example.dubbo.service.HelloService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.alibaba.dubbo.config.annotation.Reference;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 public class HelloController {
 
-    @Reference
+    @DubboReference
     private HelloService helloService;
 
     @RequestMapping("/hello")

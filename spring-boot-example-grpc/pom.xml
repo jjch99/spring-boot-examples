@@ -19,7 +19,7 @@
     </modules>
 
     <properties>
-        <grpc.version>1.14.0</grpc.version>
+        <grpc.version>1.57.2</grpc.version>
         <brave.version>5.1.5</brave.version>
         <zipkin.version>2.11.3</zipkin.version>
         <zipkin-reporter.version>2.7.7</zipkin-reporter.version>
