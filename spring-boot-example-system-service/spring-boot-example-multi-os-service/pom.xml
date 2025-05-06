@@ -125,6 +125,7 @@
                         </goals>
                         <phase>package</phase>
                         <configuration>
+                            <classifier>classes</classifier>
                             <excludes>
                                 <exclude>assembly/</exclude>
                                 <exclude>bin/</exclude>
@@ -173,7 +174,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
-                    <descriptor>src/main/resources/assembly/release.xml</descriptor>
+                    <descriptors>
+                        <descriptor>src/main/resources/assembly/release.xml</descriptor>
+                    </descriptors>
                 </configuration>
                 <executions>
                     <execution>
