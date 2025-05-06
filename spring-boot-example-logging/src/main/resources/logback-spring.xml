@@ -2,8 +2,8 @@
 <configuration scan="true">
 
     <!-- Logging
-    https://docs.spring.io/spring-boot/docs/1.5.x/reference/htmlsingle/#boot-features-logging
-    https://docs.spring.io/spring-boot/docs/1.5.x/reference/htmlsingle/#boot-features-logback-extensions
+    https://docs.spring.io/spring-boot/3.3/reference/features/logging.html
+    https://docs.spring.io/spring-boot/3.3/reference/features/logging.html#features.logging.logback-extensions
     -->
 
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>

@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 /**
  * Spring Boot Testing
  * <p>
- * https://docs.spring.io/spring-boot/docs/1.5.x/reference/html/boot-features-testing.html
+ * https://docs.spring.io/spring-boot/3.3/reference/testing/index.html
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
