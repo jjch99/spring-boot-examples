@@ -19,6 +19,9 @@ tree.txt
 *.iml
 *.iws
 
+# vscode ignore
+.vscode/
+
 # temp ignore
 *.log
 *.cache

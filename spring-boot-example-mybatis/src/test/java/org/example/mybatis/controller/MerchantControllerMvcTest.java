@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 /**
  * Auto-configured Spring MVC tests
- * https://docs.spring.io/spring-boot/docs/1.5.x/reference/html/boot-features-testing.html#boot-features-testing-spring-boot-applications-testing-autoconfigured-mvc-tests
+ * https://docs.spring.io/spring-boot/docs/2.1.x/reference/html/boot-features-testing.html#boot-features-testing-spring-boot-applications-testing-autoconfigured-mvc-tests
  */
 @RunWith(SpringRunner.class)
 @WebMvcTest(MerchantController.class)
