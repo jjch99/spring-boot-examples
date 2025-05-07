@@ -1,8 +1,5 @@
 package org.example.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -10,8 +7,15 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 页面文件
+ * 文件 src/main/resources/templates/demo/echarts-demo.ftl 的URL如下
+ * http://host:port/context-path/servlet-path/view/demo/echarts-demo
+ */
 @Slf4j
 @Controller
 @RequestMapping("/view")
