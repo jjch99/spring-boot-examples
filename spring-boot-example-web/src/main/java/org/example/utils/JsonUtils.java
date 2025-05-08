@@ -1,15 +1,15 @@
 package org.example.utils;
 
 
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.Map;
 
 public class JsonUtils {
 
@@ -34,7 +34,7 @@ public class JsonUtils {
             return OBJECT_MAPPER.readValue(text, clazz);
         } catch (Exception e) {
             try {
-                return clazz.newInstance();
+                return clazz.getConstructor().newInstance();
             } catch (Exception ex) {
                 return null;
             }
