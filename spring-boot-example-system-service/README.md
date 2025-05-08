@@ -1,6 +1,6 @@
 # Spring Boot程序安装为系统服务
 官方说明
-> https://docs.spring.io/spring-boot/docs/2.1.x/reference/html/deployment-install.html
+> https://docs.spring.io/spring-boot/3.3/how-to/deployment/installing.html
 
 关于Windows环境Java程序安装为系统服务,常见方案和工具
 
