@@ -23,6 +23,8 @@ else
     echo "Unknown operating system."
 fi
 
+[ -s .env ] && export $(cat .env | xargs)
+
 HOSTNAME=$(hostname)
 if [[ "$HOSTNAME" =~ "-scm-" ]]; then
 

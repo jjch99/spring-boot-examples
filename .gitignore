@@ -33,3 +33,5 @@ tree.txt
 .DS_Store
 Thumbs.db
 
+# env ignore
+.env
