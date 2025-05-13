@@ -4,7 +4,7 @@ WORK_DIR=$(cd "$(dirname "$0")"; pwd)
 cd $WORK_DIR
 echo "workdir is: $WORK_DIR"
 
-source setenv.sh
+. ${WORK_DIR}/setenv.sh
 alias mvn=$WORK_DIR/mvnw
 
 set -e

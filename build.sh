@@ -50,7 +50,7 @@ if [[ "$HOSTNAME" =~ "-scm-" ]]; then
 
 else
 
-    source ${WORK_DIR}/setenv.sh
+    . ${WORK_DIR}/setenv.sh
     type ${WORK_DIR}/mvnw >/dev/null 2>&1 || { echo >&2 "mvn not found, Aborting."; exit 1; }
     echo "build profile: $PROFILE, skipTests"
     ${WORK_DIR}/mvnw -pl '!spring-boot-example-docker,!spring-boot-example-common' -U clean package -DskipTests -P$PROFILE -e -s ${WORK_DIR}/.mvn/settings.xml || { echo "build failed"; exit 1; }
