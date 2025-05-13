@@ -19,6 +19,5 @@
             "path": "/usr/lib/jvm/java-8-openjdk-amd64"
         }
     ],
-    "java.autobuild.enabled": false,
-    "java.compile.nullAnalysis.mode": "disabled"
+    "java.autobuild.enabled": false
 }
