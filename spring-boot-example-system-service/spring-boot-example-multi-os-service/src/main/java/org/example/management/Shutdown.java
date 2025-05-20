@@ -7,9 +7,9 @@ import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.Base64;
 import java.util.Properties;
 
-import org.springframework.util.Base64Utils;
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class Shutdown {
@@ -49,7 +49,7 @@ public class Shutdown {
             String path = prop.getProperty("endpoints.shutdown.path");
             String username = prop.getProperty("security.user.name");
             String password = prop.getProperty("security.user.password");
-            String auth = Base64Utils.encodeToString((username + ":" + password).getBytes());
+            String auth = Base64.getEncoder().encodeToString((username + ":" + password).getBytes());
 
             UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl("httpclient://127.0.0.1")
                     .port(port)
