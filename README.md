@@ -1,7 +1,7 @@
 # spring-boot-examples
 Spring Boot Examples
 
-[Spring Boot Reference Guide](https://docs.spring.io/spring-boot/3.3/documentation.html)
+[Spring Boot Reference Guide](https://docs.spring.io/spring-boot/3.5/documentation.html)
 
 ## Other samples/examples
 

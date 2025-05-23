@@ -1,6 +1,6 @@
 # spring-boot-example-test
 
-[Spring Boot features: Testing](https://docs.spring.io/spring-boot/3.3/reference/testing/index.html)
+[Spring Boot features: Testing](https://docs.spring.io/spring-boot/3.5/reference/testing/index.html)
 
 
 官方示例

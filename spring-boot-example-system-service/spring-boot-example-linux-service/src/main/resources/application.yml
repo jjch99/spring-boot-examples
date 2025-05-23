@@ -1,4 +1,4 @@
-# https://docs.spring.io/spring-boot/3.3/appendix/application-properties/index.html
+# https://docs.spring.io/spring-boot/3.5/appendix/application-properties/index.html
 spring:
   application:
     name: spring-boot-example
