@@ -34,3 +34,6 @@ NODE_DIR=$(ls -d $HOME/node-v22.15.1-*/ | head -1) export PATH="${NODE_DIR}bin:$
 npx -y @modelcontextprotocol/inspector
 
 ```
+
+# 其他
+- https://guangzhengli.com/blog/zh/model-context-protocol
