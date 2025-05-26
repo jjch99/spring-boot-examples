@@ -1,9 +1,7 @@
 package org.example;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
+import org.junit.jupiter.api.Test;
 
 import com.openai.client.OpenAIClient;
 import com.openai.client.okhttp.OpenAIOkHttpClient;
@@ -25,14 +23,10 @@ import com.openai.models.chat.completions.ChatCompletionCreateParams;
  * 不是所有模型都支持 Function calling, 支持 Function calling 的模型列表
  * https://cloud.baidu.com/doc/qianfan-docs/s/xm95lyys5
  */
-@Component
-@Order(1000)
-public class QianFanChat implements CommandLineRunner {
+public class QianFanTest {
 
-    @Override
-    public void run(String... args) throws Exception {
-
-        System.out.println(this.getClass().getName());
+    @Test
+    public void run() {
 
         String apiKey = System.getenv("QIANFAN_API_KEY");
         if (StringUtils.isEmpty(apiKey)) {
@@ -48,7 +42,7 @@ public class QianFanChat implements CommandLineRunner {
                 .addUserMessage("Hello")
                 .model("ernie-lite-8k")
                 .build();
-        
+
         ChatCompletion chatCompletion = client.chat().completions().create(params);
         System.out.println(chatCompletion.choices().get(0).message().content());
 

@@ -12,4 +12,5 @@ echo "rootdir is: $ROOT_DIR"
 [ -s "${WORK_DIR}/.env" ] && source "${WORK_DIR}/.env"
 
 # $ROOT_DIR/mvnw dependency:tree
+# $ROOT_DIR/mvnw clean test -e -s $ROOT_DIR/.mvn/settings.xml
 $ROOT_DIR/mvnw spring-boot:run -e -s $ROOT_DIR/.mvn/settings.xml
