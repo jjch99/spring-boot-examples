@@ -12,7 +12,7 @@
     <artifactId>spring-boot-example-es</artifactId>
 
     <properties>
-        <elasticsearch.version>6.8.17</elasticsearch.version>
+        <elasticsearch.version>8.15.1</elasticsearch.version>
     </properties>
 
     <dependencies>
