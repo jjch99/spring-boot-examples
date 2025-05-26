@@ -16,7 +16,7 @@ public class ChatModelDemo implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         System.out.println(this.getClass().getName());
-        
+
         String response = openAiChatModel.call("Hello");
         System.out.println(response);
     }

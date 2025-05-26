@@ -70,7 +70,9 @@ public class QweatherService implements WeatherService {
             String id = record.get(0);
             String nameEN = record.get(1);
             String nameCN = record.get(2);
-            if (StringUtils.equals(id, location) || StringUtils.equals(nameCN, location) || StringUtils.equalsIgnoreCase(nameEN, location)) {
+            if (StringUtils.equals(id, location)
+                    || StringUtils.equals(nameCN, location)
+                    || StringUtils.equalsIgnoreCase(nameEN, location)) {
                 return id;
             }
         }

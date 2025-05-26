@@ -26,9 +26,9 @@ import reactor.core.publisher.Mono;
 public class GlobalExceptionHandler extends AbstractErrorWebExceptionHandler {
 
     public GlobalExceptionHandler(ErrorAttributes errorAttributes,
-                                          WebProperties.Resources resources,
-                                          ApplicationContext applicationContext,
-                                          ServerCodecConfigurer serverCodecConfigurer) {
+            WebProperties.Resources resources,
+            ApplicationContext applicationContext,
+            ServerCodecConfigurer serverCodecConfigurer) {
         super(errorAttributes, resources, applicationContext);
         super.setMessageWriters(serverCodecConfigurer.getWriters());
         super.setMessageReaders(serverCodecConfigurer.getReaders());
@@ -38,12 +38,12 @@ public class GlobalExceptionHandler extends AbstractErrorWebExceptionHandler {
     protected RouterFunction<ServerResponse> getRoutingFunction(ErrorAttributes errorAttributes) {
         return RouterFunctions.route(RequestPredicates.all(), this::renderErrorResponse);
     }
-    
+
     private Mono<ServerResponse> renderErrorResponse(ServerRequest request) {
         // Throwable error = getError(request);
 
-        Map<String, Object> errorAttributesMap =
-                getErrorAttributes(request, ErrorAttributeOptions.of(ErrorAttributeOptions.Include.MESSAGE));
+        Map<String, Object> errorAttributesMap = getErrorAttributes(request,
+                ErrorAttributeOptions.of(ErrorAttributeOptions.Include.MESSAGE));
         int status = (int) errorAttributesMap.getOrDefault("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
         return ServerResponse.status(status)
                 .contentType(MediaType.APPLICATION_JSON)

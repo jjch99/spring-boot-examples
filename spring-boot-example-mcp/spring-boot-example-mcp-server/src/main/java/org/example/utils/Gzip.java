@@ -9,8 +9,8 @@ public class Gzip {
 
     public static byte[] gunzip(byte[] compressed) throws IOException {
         try (ByteArrayInputStream bais = new ByteArrayInputStream(compressed);
-             GZIPInputStream gis = new GZIPInputStream(bais);
-             ByteArrayOutputStream buffer = new ByteArrayOutputStream()) {
+                GZIPInputStream gis = new GZIPInputStream(bais);
+                ByteArrayOutputStream buffer = new ByteArrayOutputStream()) {
 
             byte[] tmp = new byte[4096];
             int len;

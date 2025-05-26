@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class Tools {
 
 	// 可以有多个这样的Bean，框架会自动merge
-    @Bean
+	@Bean
 	public ToolCallbackProvider weatherTools(@Autowired WeatherTool weatherTool) {
 		return MethodToolCallbackProvider.builder().toolObjects(weatherTool).build();
 	}

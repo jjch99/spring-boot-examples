@@ -23,11 +23,11 @@ public class McpClientDemo implements CommandLineRunner {
         System.out.println(this.getClass().getName());
 
         ChatClient chatClient = chatClientBuilder
-					.defaultToolCallbacks(toolCallbackProvider)
-					.build();
+                .defaultToolCallbacks(toolCallbackProvider)
+                .build();
         String q = "北京的天气";
-		System.out.println("\n>>> QUESTION: " + q);
-		System.out.println("\n>>> ASSISTANT: " + chatClient.prompt(q).call().content());
+        System.out.println("\n>>> QUESTION: " + q);
+        System.out.println("\n>>> ASSISTANT: " + chatClient.prompt(q).call().content());
 
     }
 
