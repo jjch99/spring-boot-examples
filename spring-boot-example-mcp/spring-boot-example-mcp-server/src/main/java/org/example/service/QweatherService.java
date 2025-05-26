@@ -7,6 +7,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import jakarta.annotation.PostConstruct;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.core.io.ClassPathResource;
+
 /**
  * 和风天气
  * https://dev.qweather.com/
@@ -19,11 +31,13 @@ import org.springframework.web.client.RestTemplate;
  * https://github.com/qwd/LocationList/blob/master/China-City-List-latest.csv
  */
 @Service
-public class QweatherService  implements WeatherService {
+public class QweatherService implements WeatherService {
 
     private final static Logger log = LoggerFactory.getLogger(QweatherService.class);
 
     private final RestTemplate restTemplate = new RestTemplate();
+
+    private List<CSVRecord> locations = new ArrayList<>();
 
     @Value("${weather.api-key}")
     private String apiKey;
@@ -31,7 +45,35 @@ public class QweatherService  implements WeatherService {
     @Value("${weather.url}")
     private String apiUrl;
 
-    private String getLocation(String in) {
+    @PostConstruct
+    public void init() {
+        ClassPathResource resource = new ClassPathResource("China-City-List.csv");
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()))) {
+            reader.readLine();
+
+            this.locations = CSVFormat.DEFAULT.builder()
+                    .setHeader()
+                    .setSkipHeaderRecord(true)
+                    .setNullString("")
+                    .get()
+                    .parse(reader)
+                    .getRecords();
+
+            log.info("China-City-List init ok, records: {}", this.locations.size());
+        } catch (Exception e) {
+            throw new RuntimeException("China-City-List init failed", e);
+        }
+    }
+
+    private String getLocation(String location) {
+        for (CSVRecord record : this.locations) {
+            String id = record.get(0);
+            String nameEN = record.get(1);
+            String nameCN = record.get(2);
+            if (StringUtils.equals(id, location) || StringUtils.equals(nameCN, location) || StringUtils.equalsIgnoreCase(nameEN, location)) {
+                return id;
+            }
+        }
         return "101010100";
     }
 
