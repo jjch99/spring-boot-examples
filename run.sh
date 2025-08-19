@@ -52,11 +52,13 @@ if grep -q "<packaging>pom</packaging>" "$POM_FILE"; then
   exit 1
 fi
 
+rm -rf ~/.m2/repository/org/examples/*
+
 $WORK_DIR/mvnw -v
 
 # Build the module before running
 echo "Building module '$MODULE_NAME' (skip tests)..."
-$WORK_DIR/mvnw -pl "$MODULE_NAME" -am package -DskipTests -e -s ${WORK_DIR}/.mvn/settings.xml
+$WORK_DIR/mvnw -pl "$MODULE_NAME" -am install -DskipTests -e -s ${WORK_DIR}/.mvn/settings.xml
 
 # Run the Spring Boot application
 echo "Running module: $MODULE_NAME"
